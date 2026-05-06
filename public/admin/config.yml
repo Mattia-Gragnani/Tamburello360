@@ -14,7 +14,7 @@ collections:
   label: Articoli Blog
   folder: content/blog
   create: true
-  slug: “{{year}}-{{month}}-{{day}}-{{slug}}”
+  slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
   fields:
   - label: Layout
     name: layout
@@ -56,20 +56,25 @@ collections:
     default: 5
     value_type: int
     min: 1
+
 - name: classifiche
-  label: Classifiche
+  label: Classifica Serie A
   folder: content/classifiche
   create: true
-  slug: “{{slug}}”
+  slug: "{{slug}}"
   fields:
+  - label: Permalink
+    name: permalink
+    widget: hidden
+    default: false
   - label: Serie
     name: serie
-    widget: select
-    options:
-    - Serie A
-    - Serie B
-    - Serie C
-    - Serie D
+    widget: hidden
+    default: Serie A
+  - label: Tipo
+    name: tipo
+    widget: hidden
+    default: outdoor
   - label: Anno
     name: year
     widget: number
@@ -78,6 +83,11 @@ collections:
   - label: Aggiornata al
     name: updated
     widget: datetime
+  - label: Retrocesse
+    name: retrocesse
+    widget: number
+    default: 1
+    value_type: int
   - label: Squadre
     name: teams
     widget: list
@@ -86,6 +96,10 @@ collections:
       name: position
       widget: number
       value_type: int
+    - label: Codice Squadra
+      name: team_code
+      widget: string
+      hint: Esempio BAR, ARC, SOL
     - label: Nome Squadra
       name: name
       widget: string
@@ -106,61 +120,96 @@ collections:
       name: losses
       widget: number
       value_type: int
-- name: risultati
-  label: Risultati Partite
-  folder: content/risultati
+    - label: Partite Giocate
+      name: played
+      widget: number
+      default: 0
+      value_type: int
+    - label: Forma
+      name: form
+      widget: string
+      required: false
+
+- name: partite
+  label: Partite Serie A
+  folder: content/partite
   create: true
-  slug: “{{year}}-{{month}}-{{day}}-{{slug}}”
+  slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
   fields:
-  - label: Data Partita
-    name: date
-    widget: datetime
+  - label: Permalink
+    name: permalink
+    widget: hidden
+    default: false
+  - label: ID Partita
+    name: id
+    widget: string
   - label: Serie
     name: serie
+    widget: hidden
+    default: A
+  - label: Giornata
+    name: giornata
+    widget: number
+    default: 1
+    value_type: int
+  - label: Squadra Casa
+    name: squadra_casa
+    widget: string
+    hint: Usa il team_code della squadra, ad esempio BAR o ARC
+  - label: Squadra Ospite
+    name: squadra_ospite
+    widget: string
+    hint: Usa il team_code della squadra, ad esempio SOL o SEG
+  - label: Data Partita
+    name: data
+    widget: datetime
+  - label: Stato
+    name: stato
     widget: select
     options:
-    - Serie A
-    - Serie B
-    - Serie C
-    - Serie D
-  - label: Squadra Casa
-    name: home_team
-    widget: string
-  - label: Squadra Ospite
-    name: away_team
-    widget: string
-  - label: Punteggio Casa
-    name: home_score
+    - label: Da giocare
+      value: da_giocare
+    - label: Giocata
+      value: giocata
+  - label: Gol Casa
+    name: gol_casa
     widget: number
-    value_type: int
-  - label: Punteggio Ospite
-    name: away_score
-    widget: number
-    value_type: int
-  - label: Note
-    name: notes
-    widget: text
     required: false
+    value_type: int
+  - label: Gol Ospite
+    name: gol_ospite
+    widget: number
+    required: false
+    value_type: int
+
 - name: squadre
-  label: Squadre
+  label: Squadre Serie A
   folder: content/squadre
   create: true
-  slug: “{{slug}}”
+  slug: "{{slug}}"
   fields:
+  - label: Permalink
+    name: permalink
+    widget: hidden
+    default: false
+  - label: Codice Squadra
+    name: team_code
+    widget: string
+    hint: Esempio BAR, ARC, SOL
+  - label: Slug
+    name: slug
+    widget: string
+    hint: Esempio bardolino, arcene, solferino
   - label: Nome Squadra
     name: name
     widget: string
-  - label: Città
+  - label: Citta
     name: city
     widget: string
   - label: Serie
     name: serie
-    widget: select
-    options:
-    - Serie A
-    - Serie B
-    - Serie C
-    - Serie D
+    widget: hidden
+    default: Serie A
   - label: Latitudine
     name: lat
     widget: number
@@ -175,6 +224,16 @@ collections:
     name: logo
     widget: image
     required: false
+  - label: Colore Primario
+    name: color_primary
+    widget: string
+    required: false
+    hint: Codice HEX dominante del logo, ad esempio #E87722
+  - label: Link Stadio
+    name: stadium_url
+    widget: string
+    required: false
+    hint: Se presente viene usato al posto del link Google Maps automatico
   - label: Sito Web
     name: website
     widget: string
