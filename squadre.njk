@@ -9,62 +9,30 @@ title: Squadre
 
 <section class="section">
     <div class="container">
-
-        <!-- Filtro per serie -->
-        {%- set series = [] -%}
-        {%- for squadra in collections.squadre -%}
-            {%- if squadra.data.serie and squadra.data.serie not in series -%}
-                {%- set series = (series.push(squadra.data.serie), series) -%}
-            {%- endif -%}
-        {%- endfor -%}
-
-        {%- if series.length > 1 -%}
-        <div class="filter-bar">
-            <button class="filter-btn active" data-filter="tutti">Tutte</button>
-            {%- for s in series -%}
-            <button class="filter-btn" data-filter="{{ s }}">{{ s }}</button>
-            {%- endfor -%}
-        </div>
-        {%- endif -%}
-
         <div class="squadre-grid" id="squadreGrid">
-            {%- for squadra in collections.squadre -%}
-            <div class="squadra-card" data-serie="{{ squadra.data.serie }}">
-                {%- if squadra.data.logo -%}
-                <img src="{{ squadra.data.logo }}" alt="{{ squadra.data.name }}" class="squadra-logo">
+            {%- for squadra in collections.teamDatabase -%}
+            <div class="squadra-card">
+                {%- if squadra.logo -%}
+                <img src="{{ squadra.logo }}" alt="{{ squadra.name }}" class="squadra-logo">
                 {%- endif -%}
-                <h3 class="squadra-name">{{ squadra.data.name }}</h3>
-                <span class="squadra-badge">{{ squadra.data.serie }}</span>
+                <h3 class="squadra-name">{{ squadra.name }}</h3>
+                <span class="squadra-badge">Serie A</span>
                 <div class="squadra-info">
-                    <strong>📍</strong> {{ squadra.data.city }}
+                    <strong>Codice</strong> {{ squadra.team_code }}
                 </div>
-                {%- if squadra.data.description -%}
-                <p class="squadra-desc">{{ squadra.data.description }}</p>
+                <div class="squadra-info">
+                    <strong>📍</strong> {{ squadra.city }}
+                </div>
+                {%- if squadra.description -%}
+                <p class="squadra-desc">{{ squadra.description }}</p>
                 {%- endif -%}
-                {%- if squadra.data.website -%}
-                <a href="{{ squadra.data.website }}" target="_blank" rel="noopener" class="squadra-link">Sito Web →</a>
+                {%- if squadra.website -%}
+                <a href="{{ squadra.website }}" target="_blank" rel="noopener" class="squadra-link">Sito Web →</a>
                 {%- endif -%}
             </div>
             {%- else -%}
             <div class="empty-state"><p>Nessuna squadra ancora. Aggiungile dal pannello admin!</p></div>
             {%- endfor -%}
         </div>
-
     </div>
 </section>
-
-<script>
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.squadra-card');
-
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const filter = btn.dataset.filter;
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            cards.forEach(card => {
-                card.style.display = (filter === 'tutti' || card.dataset.serie === filter) ? '' : 'none';
-            });
-        });
-    });
-</script>

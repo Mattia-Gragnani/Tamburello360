@@ -1,0 +1,149 @@
+---
+layout: base.njk
+pagination:
+  data: collections.partiteEnriched
+  size: 1
+  alias: partita
+permalink: "/partite/{{ partita.id }}/info/index.html"
+title: Info Partita
+---
+
+<div class="page-header">
+    <h1>INFO PARTITA</h1>
+</div>
+
+<section class="section partite-info-page">
+    <div class="container partite-info-container">
+        <div class="partite-info-banner">DATI IN ARRIVO</div>
+
+        <article class="partita-card partita-card--compact" style="background: {{ partita.gradient }}">
+            <div class="partita-card-main">
+                <div class="partita-team-wrap partita-team-wrap--home">
+                    {% if partita.home_team.logo %}
+                    <img class="partita-team-logo" src="{{ partita.home_team.logo }}" alt="Logo {{ partita.home_team.name }}">
+                    {% else %}
+                    <span class="partita-team-logo partita-team-logo--placeholder" aria-hidden="true">{{ partita.home_team.initial }}</span>
+                    {% endif %}
+                    <span class="partita-team-name">{{ partita.home_team.name }}</span>
+                </div>
+
+                <div class="partita-card-center">
+                    {% if partita.is_played %}
+                    <div class="partita-score">{{ partita.score_label }}</div>
+                    {% else %}
+                    <div class="partita-date-block">
+                        <span>{{ partita.date_day_label or 'Data da definire' }}</span>
+                        <span>{{ partita.date_time_label or '--:--' }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="partita-team-wrap partita-team-wrap--away">
+                    <span class="partita-team-name">{{ partita.away_team.name }}</span>
+                    {% if partita.away_team.logo %}
+                    <img class="partita-team-logo" src="{{ partita.away_team.logo }}" alt="Logo {{ partita.away_team.name }}">
+                    {% else %}
+                    <span class="partita-team-logo partita-team-logo--placeholder" aria-hidden="true">{{ partita.away_team.initial }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </article>
+
+        <section class="partite-info-section">
+            <div class="partite-info-section-head">
+                <h2>Statistiche partita</h2>
+                <span>Placeholder</span>
+            </div>
+            <div class="partite-stats-grid">
+                <div class="partite-stats-row">
+                    <span>52%</span>
+                    <strong>Possesso palla</strong>
+                    <span>48%</span>
+                </div>
+                <div class="partite-stats-row">
+                    <span>14</span>
+                    <strong>Tiri</strong>
+                    <span>11</span>
+                </div>
+                <div class="partite-stats-row">
+                    <span>9</span>
+                    <strong>Falli</strong>
+                    <span>12</span>
+                </div>
+                <div class="partite-stats-row">
+                    <span>6</span>
+                    <strong>Corner</strong>
+                    <span>4</span>
+                </div>
+                <div class="partite-stats-row">
+                    <span>3</span>
+                    <strong>Ammonizioni</strong>
+                    <span>2</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="partite-info-section">
+            <div class="partite-info-section-head">
+                <h2>Formazioni</h2>
+                <span>Placeholder</span>
+            </div>
+            <div class="partite-lineups">
+                <div class="partite-lineup-card">
+                    <h3>{{ partita.home_team.name }}</h3>
+                    <ol>
+                        <li>Giocatore 1</li>
+                        <li>Giocatore 2</li>
+                        <li>Giocatore 3</li>
+                        <li>Giocatore 4</li>
+                        <li>Giocatore 5</li>
+                    </ol>
+                </div>
+                <div class="partite-lineup-card">
+                    <h3>{{ partita.away_team.name }}</h3>
+                    <ol>
+                        <li>Giocatore 1</li>
+                        <li>Giocatore 2</li>
+                        <li>Giocatore 3</li>
+                        <li>Giocatore 4</li>
+                        <li>Giocatore 5</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section class="partite-info-section">
+            <div class="partite-info-section-head">
+                <h2>Cronaca / Marcatori</h2>
+                <span>Placeholder</span>
+            </div>
+            <div class="partite-events">
+                <div class="partite-event-item">
+                    <span class="partite-event-minute">08'</span>
+                    <span class="partite-event-type">Goal</span>
+                    <span class="partite-event-player">Giocatore esempio</span>
+                </div>
+                <div class="partite-event-item">
+                    <span class="partite-event-minute">21'</span>
+                    <span class="partite-event-type">Fallo</span>
+                    <span class="partite-event-player">Giocatore esempio</span>
+                </div>
+                <div class="partite-event-item">
+                    <span class="partite-event-minute">39'</span>
+                    <span class="partite-event-type">Timeout</span>
+                    <span class="partite-event-player">Panchina</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="partite-info-section">
+            <div class="partite-info-section-head">
+                <h2>Note arbitro</h2>
+                <span>Placeholder</span>
+            </div>
+            <div class="partite-notes-box">
+                Annotazioni ufficiali in arrivo. Questa sezione mostrera referto, osservazioni e comunicazioni di gara appena disponibili.
+            </div>
+        </section>
+    </div>
+</section>

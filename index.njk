@@ -15,8 +15,8 @@ title: Il primo sito in Italia che parla di tamburello
         </div>
     </div>
 
-    {%- if collections.classifiche.length > 0 -%}
-    {%- set primaClassifica = collections.classifiche[0] -%}
+    {%- if collections.classificheSerieA.length > 0 -%}
+    {%- set primaClassifica = collections.classificheSerieA[0] -%}
     {%- if primaClassifica.data.teams.length > 0 -%}
     <div class="hero-classifica">
         <div class="hero-classifica-title">📊 {{ primaClassifica.data.serie }} {{ primaClassifica.data.year }}</div>
@@ -35,7 +35,6 @@ title: Il primo sito in Italia che parla di tamburello
     {%- endif -%}
 </section>
 
-<!-- Ultimi articoli -->
 <section class="section section-light">
     <div class="container">
         <div class="section-header">
@@ -46,7 +45,7 @@ title: Il primo sito in Italia che parla di tamburello
             <a href="/blog/" class="view-all">Tutti gli articoli →</a>
         </div>
         <div class="articles-grid">
-            {%- for post in collections.blog | limit(3) -%}
+            {%- for post in collections.blogVisible | limit(3) -%}
             <a href="{{ post.url }}" class="article-card">
                 <div class="article-image-wrap">
                     {%- if post.data.image -%}
@@ -75,12 +74,11 @@ title: Il primo sito in Italia che parla di tamburello
     </div>
 </section>
 
-<!-- Stats bar -->
 <div class="stats-bar">
     <div class="container">
         <div class="stats-inner">
             <div class="stat-item">
-                <div class="stat-number">{{ collections.squadre.length }}</div>
+                <div class="stat-number">{{ collections.teamDatabase.length }}</div>
                 <div class="stat-label">Squadre</div>
             </div>
             <div class="stat-item">
@@ -88,16 +86,14 @@ title: Il primo sito in Italia che parla di tamburello
                 <div class="stat-label">Articoli</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">{{ collections.risultati.length }}</div>
+                <div class="stat-number">{{ collections.partiteEnriched.length }}</div>
                 <div class="stat-label">Partite</div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Ultimo risultato -->
-{%- if collections.risultati.length > 0 -%}
-{%- set lastMatch = collections.risultati[0] -%}
+{%- if collections.partiteRecenti.length > 0 -%}
 <section class="section">
     <div class="container">
         <div class="section-header">
@@ -105,28 +101,23 @@ title: Il primo sito in Italia che parla di tamburello
                 <span class="section-label">Ultimo risultato</span>
                 <h2 class="section-title">Risultati Recenti</h2>
             </div>
-            <a href="/risultati/" class="view-all">Tutti i risultati →</a>
+            <a href="/partite/" class="view-all">Tutte le partite →</a>
         </div>
         <div class="risultati-grid">
-            {%- for match in collections.risultati | limit(4) -%}
+            {%- for match in collections.partiteRecenti | limit(4) -%}
             <div class="risultato-card">
                 <div class="risultato-header">
-                    <span class="risultato-serie">{{ match.data.serie }}</span>
-                    <span class="risultato-data">{{ match.data.date | shortDate }}</span>
+                    <span class="risultato-serie">Serie A</span>
+                    <span class="risultato-data">{{ match.date_day_label }}</span>
                 </div>
                 <div class="match-display">
-                    <div class="match-team {% if match.data.home_score > match.data.away_score %}winner{% endif %}">{{ match.data.home_team }}</div>
-                    <div class="match-score">{{ match.data.home_score }} — {{ match.data.away_score }}</div>
-                    <div class="match-team {% if match.data.away_score > match.data.home_score %}winner{% endif %}">{{ match.data.away_team }}</div>
+                    <div class="match-team {% if match.gol_casa > match.gol_ospite %}winner{% endif %}">{{ match.home_team.name }}</div>
+                    <div class="match-score">{{ match.gol_casa }} - {{ match.gol_ospite }}</div>
+                    <div class="match-team {% if match.gol_ospite > match.gol_casa %}winner{% endif %}">{{ match.away_team.name }}</div>
                 </div>
-                {%- if match.data.notes -%}
-                <p class="match-notes">{{ match.data.notes }}</p>
-                {%- endif -%}
             </div>
             {%- endfor -%}
         </div>
     </div>
 </section>
 {%- endif -%}
-
-

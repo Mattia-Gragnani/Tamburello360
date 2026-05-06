@@ -12,7 +12,7 @@ title: Blog
 
         <!-- Filtri categorie -->
         {%- set categories = [] -%}
-        {%- for post in collections.blog -%}
+        {%- for post in collections.blogVisible -%}
             {%- if post.data.category and post.data.category not in categories -%}
                 {%- set categories = (categories.push(post.data.category), categories) -%}
             {%- endif -%}
@@ -29,7 +29,7 @@ title: Blog
 
         <!-- Griglia articoli -->
         <div class="articles-grid" id="articlesGrid">
-            {%- for post in collections.blog -%}
+            {%- for post in collections.blogVisible -%}
             <a href="{{ post.url }}" class="article-card" data-category="{{ post.data.category }}">
                 <div class="article-image-wrap">
                     {%- if post.data.image -%}
