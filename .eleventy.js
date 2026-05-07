@@ -93,7 +93,7 @@ module.exports = function(eleventyConfig) {
     const teamDb = buildTeamDatabase(squadreEntries);
     const teamLookup = buildTeamLookup(teamDb);
 
-    const partiteEntries = collectionApi.getFilteredByGlob("content/partite/*.md");
+    const partiteEntries = collectionApi.getFilteredByGlob("content/risultati/*.md");
     return buildEnrichedMatches(partiteEntries, teamLookup);
   });
 
@@ -102,7 +102,7 @@ module.exports = function(eleventyConfig) {
     const teamDb = buildTeamDatabase(squadreEntries);
     const teamLookup = buildTeamLookup(teamDb);
 
-    const partiteEntries = collectionApi.getFilteredByGlob("content/partite/*.md");
+    const partiteEntries = collectionApi.getFilteredByGlob("content/risultati/*.md");
     const enriched = buildEnrichedMatches(partiteEntries, teamLookup);
 
     return enriched
