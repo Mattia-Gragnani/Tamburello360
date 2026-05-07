@@ -1,6 +1,12 @@
+const { buildTeamDatabase, buildTeamLookup } = require('./lib/team-database');
+const { buildEnrichedMatches } = require('./lib/partite');
+
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("public");
 
+  // ============================================================
+  // FILTRI
+  // ============================================================
   eleventyConfig.addFilter("readableDate", dateObj => {
     return new Date(dateObj).toLocaleDateString('it-IT', {
       year: 'numeric', month: 'long', day: 'numeric'
@@ -29,14 +35,51 @@ module.exports = function(eleventyConfig) {
     return str.substring(0, length) + '...';
   });
 
+  // ============================================================
+  // COLLECTION BLOG
+  // ============================================================
   eleventyConfig.addCollection("blog", function(collectionApi) {
     return collectionApi.getFilteredByGlob("content/blog/*.md").reverse();
   });
 
+  eleventyConfig.addCollection("blogVisible", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("content/blog/*.md")
+      .filter(post => !post.data.draft)
+      .reverse();
+  });
+
+  // ============================================================
+  // COLLECTION SQUADRE E TEAM DATABASE
+  // ============================================================
+  eleventyConfig.addCollection("squadre", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("content/squadre/*.md");
+  });
+
+  eleventyConfig.addCollection("teamDatabase", function(collectionApi) {
+    const entries = collectionApi.getFilteredByGlob("content/squadre/*.md");
+    return buildTeamDatabase(entries);
+  });
+
+  // ============================================================
+  // COLLECTION CLASSIFICHE
+  // ============================================================
   eleventyConfig.addCollection("classifiche", function(collectionApi) {
     return collectionApi.getFilteredByGlob("content/classifiche/*.md");
   });
 
+  eleventyConfig.addCollection("classificheSerieA", function(collectionApi) {
+    return collectionApi
+      .getFilteredByGlob("content/classifiche/*.md")
+      .filter(c => {
+        const serie = String(c.data.serie || '').toLowerCase();
+        return serie.includes('serie a');
+      })
+      .sort((a, b) => (b.data.year || 0) - (a.data.year || 0));
+  });
+
+  // ============================================================
+  // COLLECTION PARTITE
+  // ============================================================
   eleventyConfig.addCollection("risultati", function(collectionApi) {
     return collectionApi.getFilteredByGlob("content/risultati/*.md").reverse();
   });
@@ -45,10 +88,32 @@ module.exports = function(eleventyConfig) {
     return collectionApi.getFilteredByGlob("content/archivio/*.md").reverse();
   });
 
-  eleventyConfig.addCollection("squadre", function(collectionApi) {
-    return collectionApi.getFilteredByGlob("content/squadre/*.md");
+  eleventyConfig.addCollection("partiteEnriched", function(collectionApi) {
+    const squadreEntries = collectionApi.getFilteredByGlob("content/squadre/*.md");
+    const teamDb = buildTeamDatabase(squadreEntries);
+    const teamLookup = buildTeamLookup(teamDb);
+
+    const partiteEntries = collectionApi.getFilteredByGlob("content/partite/*.md");
+    return buildEnrichedMatches(partiteEntries, teamLookup);
   });
 
+  eleventyConfig.addCollection("partiteRecenti", function(collectionApi) {
+    const squadreEntries = collectionApi.getFilteredByGlob("content/squadre/*.md");
+    const teamDb = buildTeamDatabase(squadreEntries);
+    const teamLookup = buildTeamLookup(teamDb);
+
+    const partiteEntries = collectionApi.getFilteredByGlob("content/partite/*.md");
+    const enriched = buildEnrichedMatches(partiteEntries, teamLookup);
+
+    return enriched
+      .filter(m => m.is_played)
+      .sort((a, b) => b.sort_timestamp - a.sort_timestamp)
+      .slice(0, 10);
+  });
+
+  // ============================================================
+  // CONFIG
+  // ============================================================
   return {
     dir: {
       input: ".", output: "_site",
