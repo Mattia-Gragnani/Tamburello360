@@ -3,6 +3,7 @@
  * Scarica i risultati da federtamburellolivescore.it e crea i file .md in content/risultati/
  * 
  * CONFIGURAZIONE: aggiorna CAMPIONATI all'inizio di ogni stagione
+ * Il campo `round` è opzionale — se null non viene inviato all'API
  */
 
 const fs = require('fs');
@@ -13,13 +14,20 @@ const path = require('path');
 // ============================================================
 const CAMPIONATI = [
   {
-    tid: 115,      // Il dato che hai trovato
-    round: 115,    // Prova a mettere lo stesso del tid se non lo trovi
-    serie: 'Serie A Open', 
-    giornate: 18,  
-  }
-  // Aggiungi campionati outdoor qui quando inizia la stagione:
-  // { tid: ???, round: ???, serie: 'Serie A Open', giornate: ?? },
+    tid: 115,
+    round: null,        // Serie A Open non usa il round
+    serie: 'Serie A Open',
+    tipo: 'outdoor',
+    giornate: 18,
+  },
+  // Aggiungi altri campionati qui:
+  // {
+  //   tid: ???,
+  //   round: null,
+  //   serie: 'Serie B Open - Girone A',
+  //   tipo: 'outdoor',
+  //   giornate: 18,
+  // },
 ];
 
 const RISULTATI_DIR = path.join(__dirname, '..', 'content', 'risultati');
@@ -29,12 +37,18 @@ const API_URL = 'https://www.federtamburellolivescore.it/system/include/ajax/pub
 // FETCH DA API
 // ============================================================
 async function fetchGiornata(tid, round, matchDay) {
-  const body = new URLSearchParams({
+  const params = {
     op: '22',
     tid: String(tid),
-    round: String(round),
     match_day: String(matchDay),
-  });
+  };
+
+  // Aggiunge round solo se presente
+  if (round !== null && round !== undefined) {
+    params.round = String(round);
+  }
+
+  const body = new URLSearchParams(params);
 
   const res = await fetch(API_URL, {
     method: 'POST',
@@ -54,24 +68,21 @@ async function fetchGiornata(tid, round, matchDay) {
 // ============================================================
 // PARSING HTML — estrae le partite dall'HTML restituito
 // ============================================================
-function parsePartite(html, serie) {
+function parsePartite(html, campionato) {
   const partite = [];
 
-  // Trova tutti i blocchi match-element
   const matchBlocks = html.split('<div class="match-element">').slice(1);
 
   for (const block of matchBlocks) {
-    // Salta i turni di riposo
     if (block.includes('Turno di riposo')) continue;
 
-    // Estrai data dalla match-header
+    // Estrai data
     const headerMatch = block.match(/match-header[^>]*>([\s\S]*?)<\/div>/);
     if (!headerMatch) continue;
     const headerText = headerMatch[1].replace(/<[^>]*>/g, ' ').trim();
-    
-    // Estrai luogo e data (es: "Monzambano - Palestra  Dom 01 FEB 11:00")
+
     const dateMatch = headerText.match(/(Lun|Mar|Mer|Gio|Ven|Sab|Dom)\s+(\d{1,2})\s+(\w{3})\s+(\d{2}:\d{2})/);
-    let dataPartita = new Date().toISOString().split('T')[0]; // fallback oggi
+    let dataPartita = new Date().toISOString().split('T')[0];
     if (dateMatch) {
       const mesi = { GEN:0, FEB:1, MAR:2, APR:3, MAG:4, GIU:5, LUG:6, AGO:7, SET:8, OTT:9, NOV:10, DIC:11 };
       const giorno = parseInt(dateMatch[2]);
@@ -95,7 +106,19 @@ function parsePartite(html, serie) {
     const scoreCasa = parseInt(punteggiMatch[0][1]);
     const scoreOspite = parseInt(punteggiMatch[1][1]);
 
-    partite.push({ casa, ospite, scoreCasa, scoreOspite, data: dataPartita, serie });
+    // Tiebreak: se la somma dei set è 3 (es. 2-1 o 1-2)
+    const tiebreak = (scoreCasa + scoreOspite) === 3;
+
+    partite.push({
+      casa,
+      ospite,
+      scoreCasa,
+      scoreOspite,
+      tiebreak,
+      data: dataPartita,
+      serie: campionato.serie,
+      tipo: campionato.tipo,
+    });
   }
 
   return partite;
@@ -112,38 +135,33 @@ function slugify(str) {
     .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-function generaFilename(partita) {
-  const slug = `${partita.data}-${slugify(partita.casa)}-vs-${slugify(partita.ospite)}`;
-  return `${slug}.md`;
-}
-
-function generaContenuto(partita) {
+function generaContenuto(p) {
   return `---
-date: ${partita.data}T12:00:00.000+01:00
-serie: ${partita.serie}
-home_team: ${partita.casa}
-away_team: ${partita.ospite}
-home_score: ${partita.scoreCasa}
-away_score: ${partita.scoreOspite}
+date: ${p.data}T12:00:00.000+01:00
+serie: ${p.serie}
+tipo: ${p.tipo}
+home_team: ${p.casa}
+away_team: ${p.ospite}
+home_score: ${p.scoreCasa}
+away_score: ${p.scoreOspite}
+tiebreak: ${p.tiebreak}
 auto_generated: true
 ---
 `;
 }
 
-function salvaPartita(partita) {
+function salvaPartita(p) {
   if (!fs.existsSync(RISULTATI_DIR)) {
     fs.mkdirSync(RISULTATI_DIR, { recursive: true });
   }
 
-  const filename = generaFilename(partita);
-  const filepath = path.join(RISULTATI_DIR, filename);
+  const slug = `${p.data}-${slugify(p.casa)}-vs-${slugify(p.ospite)}`;
+  const filepath = path.join(RISULTATI_DIR, `${slug}.md`);
 
-  if (fs.existsSync(filepath)) {
-    return false; // già esistente, salta
-  }
+  if (fs.existsSync(filepath)) return false;
 
-  fs.writeFileSync(filepath, generaContenuto(partita), 'utf8');
-  console.log(`  ✅ Salvato: ${filename}`);
+  fs.writeFileSync(filepath, generaContenuto(p), 'utf8');
+  console.log(`  ✅ ${slug}`);
   return true;
 }
 
@@ -154,42 +172,39 @@ async function main() {
   let totaleNuovi = 0;
 
   for (const campionato of CAMPIONATI) {
-    console.log(`\n📥 Campionato: ${campionato.serie}`);
+    console.log(`\n📥 ${campionato.serie} (tid=${campionato.tid})`);
 
-    for (let giornata = 1; giornata <= campionato.giornate; giornata++) {
+    for (let g = 1; g <= campionato.giornate; g++) {
       try {
-        console.log(`  Giornata ${giornata}...`);
-        const html = await fetchGiornata(campionato.tid, campionato.round, giornata);
-        
+        process.stdout.write(`  Giornata ${g}... `);
+        const html = await fetchGiornata(campionato.tid, campionato.round, g);
+
         if (!html || html.trim() === '') {
-          console.log(`  ⏭️  Giornata ${giornata} vuota, skip`);
-          continue;
+          console.log('vuota, stop');
+          break; // giornata vuota = fine campionato
         }
 
-        const partite = parsePartite(html, campionato.serie);
-        
+        const partite = parsePartite(html, campionato);
+
         if (partite.length === 0) {
-          console.log(`  ⏭️  Nessuna partita trovata alla giornata ${giornata}`);
+          console.log('nessuna partita trovata');
           continue;
         }
 
-        for (const partita of partite) {
-          const nuova = salvaPartita(partita);
-          if (nuova) totaleNuovi++;
+        console.log(`${partite.length} partite trovate`);
+        for (const p of partite) {
+          if (salvaPartita(p)) totaleNuovi++;
         }
 
-        // Pausa tra le richieste per non sovraccaricare il server
         await new Promise(r => setTimeout(r, 500));
 
       } catch (err) {
-        console.error(`  ❌ Errore giornata ${giornata}: ${err.message}`);
+        console.error(`❌ Errore: ${err.message}`);
       }
     }
   }
 
   console.log(`\n✅ Completato. ${totaleNuovi} nuovi risultati salvati.`);
-  
-  // Exit code 0 = ok, usato dalla GitHub Action
   process.exit(0);
 }
 
