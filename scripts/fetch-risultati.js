@@ -1,7 +1,7 @@
 /**
  * fetch-risultati.js
  * Scarica i risultati da federtamburellolivescore.it e crea i file .md in content/risultati/
- * 
+ *
  * CONFIGURAZIONE: aggiorna CAMPIONATI all'inizio di ogni stagione
  * Il campo `round` è opzionale — se null non viene inviato all'API
  */
@@ -20,6 +20,14 @@ const CAMPIONATI = [
     tipo: 'outdoor',
     giornate: 18,
   },
+  // Aggiungi altri campionati qui:
+  // {
+  //   tid: ???,
+  //   round: ???,
+  //   serie: 'Serie B Open - Girone A',
+  //   tipo: 'outdoor',
+  //   giornate: 18,
+  // },
 ];
 
 const RISULTATI_DIR = path.join(__dirname, '..', 'content', 'risultati');
@@ -35,7 +43,6 @@ async function fetchGiornata(tid, round, matchDay) {
     match_day: String(matchDay),
   };
 
-  // Aggiunge round solo se presente
   if (round !== null && round !== undefined) {
     params.round = String(round);
   }
@@ -58,7 +65,7 @@ async function fetchGiornata(tid, round, matchDay) {
 }
 
 // ============================================================
-// PARSING HTML — estrae le partite dall'HTML restituito
+// PARSING HTML — formato outdoor FIPT
 // ============================================================
 function parsePartite(html, campionato) {
   const partite = [];
@@ -68,7 +75,7 @@ function parsePartite(html, campionato) {
   for (const block of matchBlocks) {
     if (block.includes('Turno di riposo')) continue;
 
-    // Estrai data
+    // Estrai data e ora
     const headerMatch = block.match(/match-header[^>]*>([\s\S]*?)<\/div>/);
     if (!headerMatch) continue;
     const headerText = headerMatch[1].replace(/<[^>]*>/g, ' ').trim();
@@ -76,6 +83,7 @@ function parsePartite(html, campionato) {
     const dateMatch = headerText.match(/(Lun|Mar|Mer|Gio|Ven|Sab|Dom)\s+(\d{1,2})\s+(\w{3})\s+(\d{2}:\d{2})/);
     let dataPartita = new Date().toISOString().split('T')[0];
     let oraPartita = '00:00';
+
     if (dateMatch) {
       const mesi = { GEN:0, FEB:1, MAR:2, APR:3, MAG:4, GIU:5, LUG:6, AGO:7, SET:8, OTT:9, NOV:10, DIC:11 };
       const giorno = parseInt(dateMatch[2]);
@@ -87,17 +95,17 @@ function parsePartite(html, campionato) {
       }
     }
 
-    // Estrai nomi squadre — formato outdoor usa participant-name
+    // Estrai nomi squadre
     const nomiMatch = [...block.matchAll(/<div class='participant-name[^']*'>\s*([^<]+?)\s*<\/div>/g)];
     if (nomiMatch.length < 2) continue;
     const casa = nomiMatch[0][1].trim();
     const ospite = nomiMatch[1][1].trim();
     if (!casa || !ospite) continue;
 
-    // Controlla se la partita è già giocata (ha score-container con set winner)
+    // Controlla se la partita è già giocata
     const scoreContainers = [...block.matchAll(/<div class="score-container">([\s\S]*?)<\/div>\s*<\/div>/g)];
 
-    // Partita non ancora giocata — nessun score-container con risultati
+    // Partita non ancora giocata
     if (scoreContainers.length === 0) {
       partite.push({
         casa,
@@ -114,10 +122,7 @@ function parsePartite(html, campionato) {
       continue;
     }
 
-    // Partita giocata — conta i set vinti da ciascuna squadra
-    // Ogni score-container rappresenta un set
-    // Il primo div dentro è la squadra casa, il secondo è la squadra ospite
-    // La classe 'winner' indica chi ha vinto quel set
+    // Partita giocata — conta set vinti da ciascuna squadra
     let setCasa = 0;
     let setOspite = 0;
 
@@ -129,10 +134,10 @@ function parsePartite(html, campionato) {
       else if (divs[1][1].includes('winner')) setOspite++;
     }
 
-    // Valida: deve esserci un vincitore (2 set)
+    // Valida che ci sia un vincitore
     if (setCasa !== 2 && setOspite !== 2) continue;
 
-    const tiebreak = scoreContainers.length === 3; // 3 set = tiebreak 2-1
+    const tiebreak = scoreContainers.length === 3;
 
     partite.push({
       casa,
@@ -163,15 +168,19 @@ function slugify(str) {
 }
 
 function generaContenuto(p) {
+  const scoreHome = p.scoreCasa !== null ? p.scoreCasa : '';
+  const scoreAway = p.scoreOspite !== null ? p.scoreOspite : '';
+
   return `---
-date: ${p.data}T12:00:00.000+01:00
+date: ${p.data}T${p.ora}:00.000+01:00
 serie: ${p.serie}
 tipo: ${p.tipo}
 home_team: ${p.casa}
 away_team: ${p.ospite}
-home_score: ${p.scoreCasa}
-away_score: ${p.scoreOspite}
+home_score: ${scoreHome}
+away_score: ${scoreAway}
 tiebreak: ${p.tiebreak}
+giocata: ${p.giocata}
 auto_generated: true
 ---
 `;
@@ -185,10 +194,11 @@ function salvaPartita(p) {
   const slug = `${p.data}-${slugify(p.casa)}-vs-${slugify(p.ospite)}`;
   const filepath = path.join(RISULTATI_DIR, `${slug}.md`);
 
+  // Se il file esiste già e la partita è già giocata, non sovrascrivere
   if (fs.existsSync(filepath)) return false;
 
   fs.writeFileSync(filepath, generaContenuto(p), 'utf8');
-  console.log(`  ✅ ${slug}`);
+  console.log(`  ✅ ${slug} (${p.giocata ? `${p.scoreCasa}-${p.scoreOspite}` : 'da giocare'})`);
   return true;
 }
 
@@ -199,17 +209,16 @@ async function main() {
   let totaleNuovi = 0;
 
   for (const campionato of CAMPIONATI) {
-    console.log(`\n📥 ${campionato.serie} (tid=${campionato.tid})`);
+    console.log(`\n📥 ${campionato.serie} (tid=${campionato.tid}, round=${campionato.round})`);
 
     for (let g = 1; g <= campionato.giornate; g++) {
       try {
         process.stdout.write(`  Giornata ${g}... `);
         const html = await fetchGiornata(campionato.tid, campionato.round, g);
-        if (g === 1) { console.log('HTML GIORNATA 1:', html.substring(0, 2000)); break; }
 
         if (!html || html.trim() === '') {
           console.log('vuota, stop');
-          break; // giornata vuota = fine campionato
+          break;
         }
 
         const partite = parsePartite(html, campionato);
@@ -219,7 +228,7 @@ async function main() {
           continue;
         }
 
-        console.log(`${partite.length} partite trovate`);
+        console.log(`${partite.length} partite`);
         for (const p of partite) {
           if (salvaPartita(p)) totaleNuovi++;
         }
