@@ -13,23 +13,11 @@ const path = require('path');
 // ============================================================
 const CAMPIONATI = [
   {
-    tid: 114,
-    round: 971,
-    serie: 'Mondiali Indoor - Gruppo A',
-    giornate: 6,
-  },
-  {
-    tid: 114,
-    round: 962,
-    serie: 'Mondiali Indoor - Gruppo B',
-    giornate: 6,
-  },
-  {
-    tid: 114,
-    round: 963,
-    serie: 'Mondiali Indoor - Gruppo C',
-    giornate: 10,
-  },
+    tid: 115,      // Il dato che hai trovato
+    round: 115,    // Prova a mettere lo stesso del tid se non lo trovi
+    serie: 'Serie A Open', 
+    giornate: 18,  
+  }
   // Aggiungi campionati outdoor qui quando inizia la stagione:
   // { tid: ???, round: ???, serie: 'Serie A Open', giornate: ?? },
 ];
