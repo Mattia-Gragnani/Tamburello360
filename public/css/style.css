@@ -1571,14 +1571,14 @@ header.scrolled .logo-img {
 /* ============ SQUADRE ============ */
 .squadre-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
 }
 
 .team-card {
     position: relative;
     overflow: hidden;
-    max-width: 540px;
+    max-width: 400px;
     width: 100%;
     margin: 0 auto;
     border-radius: 52px;
