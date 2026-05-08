@@ -1570,99 +1570,146 @@ header.scrolled .logo-img {
 
 /* ============ SQUADRE ============ */
 .squadre-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 1.5rem;
 }
 
-.squadra-card {
-    background: white;
-    border-radius: var(--radius-lg);
-    padding: 2rem 1.5rem;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--gray-200);
-    text-align: center;
-    transition: var(--transition);
+.team-card {
     position: relative;
     overflow: hidden;
+    max-width: 750px;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 52px;
+    padding: clamp(1rem, 2vw, 1.3rem);
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.16);
+    isolation: isolate;
+    transition: transform var(--transition), box-shadow var(--transition);
 }
 
-.squadra-card::before {
+.team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 60px rgba(15, 23, 42, 0.2);
+}
+
+.team-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--red), var(--orange));
+    inset: 0;
+    background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.28), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+    pointer-events: none;
 }
 
-.squadra-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+.team-card > * {
+    position: relative;
+    z-index: 1;
 }
 
-.squadra-logo {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    margin: 0 auto 1rem;
+.team-card-main {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.7rem, 1.8vw, 1rem);
 }
 
-.squadra-name {
-    font-family: var(--font-display);
-    font-size: 1.8rem;
-    color: var(--navy);
-    margin-bottom: 0.5rem;
-    letter-spacing: 1px;
+.team-logo-wrap {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
-.squadra-badge {
-    display: inline-block;
+.team-logo {
+    width: clamp(48px, 7vw, 62px);
+    height: clamp(48px, 7vw, 62px);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.22);
+    flex-shrink: 0;
+}
+
+.team-logo--placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
     font-family: var(--font-condensed);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 0.25rem 0.75rem;
-    border-radius: 50px;
-    background: var(--gray-100);
-    color: var(--gray-600);
-    margin-bottom: 1rem;
+    font-size: 1.15rem;
+    font-weight: 800;
 }
 
-.squadra-info {
-    font-size: 0.9rem;
-    color: var(--gray-600);
-    line-height: 1.8;
-    text-align: left;
+.team-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: white;
+    font-family: var(--font-condensed);
+    font-size: clamp(1rem, 2.2vw, 1.35rem);
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.18);
 }
 
-.squadra-info strong { color: var(--navy); }
-
-.squadra-desc {
-    font-size: 0.88rem;
-    color: var(--gray-600);
-    margin-top: 0.75rem;
-    text-align: left;
-    line-height: 1.5;
-}
-
-.squadra-link {
-    display: inline-block;
-    margin-top: 1rem;
+.team-series-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.2);
+    color: white;
     font-family: var(--font-condensed);
     font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    padding: 0.5rem 1.25rem;
-    background: var(--orange);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.team-card-divider {
+    height: 1px;
+    margin: 1rem 0 0.85rem;
+    background: rgba(255,255,255,0.52);
+}
+
+.team-card-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.team-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.team-action--left {
+    border-right: 1px solid rgba(255,255,255,0.3);
+}
+
+.team-action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
     color: white;
-    border-radius: 50px;
+    font-family: var(--font-condensed);
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     transition: var(--transition);
 }
 
-.squadra-link:hover { background: var(--red); }
+.team-action-link:hover {
+    color: var(--orange-light);
+    transform: translateY(-1px);
+}
 
 /* ============ BLOG PAGE ============ */
 .blog-filters {
@@ -2547,7 +2594,6 @@ footer {
         border-radius: 30px;
     }
     .partita-card-main {
-        grid-template-columns: 1fr;
         justify-items: stretch;
         gap: 0.8rem;
     }

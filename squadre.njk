@@ -7,28 +7,33 @@ title: Squadre
     <h1>Squadre</h1>
 </div>
 
-<section class="section">
+<section class="section partite-page">
     <div class="container">
+        <div class="partite-serie-badge-wrap">
+            <div class="partite-serie-badge">Serie A</div>
+        </div>
         <div class="squadre-grid" id="squadreGrid">
-            {%- for squadra in collections.teamDatabase -%}
-            <div class="squadra-card">
-                {%- if squadra.logo -%}
-                <img src="{{ squadra.logo }}" alt="{{ squadra.name }}" class="squadra-logo">
-                {%- endif -%}
-                <h3 class="squadra-name">{{ squadra.name }}</h3>
-                <span class="squadra-badge">Serie A</span>
-                <div class="squadra-info">
-                    <strong>Codice</strong> {{ squadra.team_code }}
+            {%- for team in collections.teamDatabase -%}
+            <div class="team-card" style="background-color: {{ team.color_primary }};">
+                <div class="team-card-main">
+                    <div class="team-logo-wrap">
+                        {%- if team.logo -%}
+                        <img src="{{ team.logo }}" alt="{{ team.name }}" class="team-logo">
+                        {%- else -%}
+                        <div class="team-logo team-logo--placeholder">{{ team.team_code }}</div>
+                        {%- endif -%}
+                        <div class="team-name">{{ team.name }}</div>
+                    </div>
                 </div>
-                <div class="squadra-info">
-                    <strong>📍</strong> {{ squadra.city }}
+                <div class="team-card-divider"></div>
+                <div class="team-card-actions">
+                    <div class="team-action team-action--left">
+                        <a href="{{ team.history_url }}" class="team-action-link"><i class="fas fa-book"></i> Storia</a>
+                    </div>
+                    <div class="team-action team-action--right">
+                        <a href="{{ team.map_url }}" target="_blank" rel="noopener" class="team-action-link"><i class="fas fa-map-marker-alt"></i> Città</a>
+                    </div>
                 </div>
-                {%- if squadra.description -%}
-                <p class="squadra-desc">{{ squadra.description }}</p>
-                {%- endif -%}
-                {%- if squadra.website -%}
-                <a href="{{ squadra.website }}" target="_blank" rel="noopener" class="squadra-link">Sito Web →</a>
-                {%- endif -%}
             </div>
             {%- else -%}
             <div class="empty-state"><p>Nessuna squadra ancora. Aggiungile dal pannello admin!</p></div>

@@ -1,0 +1,29 @@
+{#
+  Questo template renderizza una singola card per la squadra,
+  utilizzando gli stili definiti in .team-card nel CSS.
+  Assume che l'oggetto 'team' sia passato come prop, contenente:
+  - team.color_primary (colore dominante della squadra)
+  - team.logo (URL del logo)
+  - team.team_code (codice della squadra, per placeholder)
+  - team.name (nome completo della squadra)
+  - team.serie (es. "Serie A")
+  - team.history_url (URL alla pagina della storia della squadra)
+  - team.map_url (URL alla mappa del campo)
+#}
+<div class="team-card" style="background-color: {{ team.color_primary | default('#003049') }};">
+    <div class="team-card-main">
+        <div class="team-logo-wrap">
+            {% if team.logo %}
+                <img src="{{ team.logo }}" alt="{{ team.name }} logo" class="team-logo">
+            {% else %}
+                <div class="team-logo team-logo--placeholder">{{ team.team_code }}</div>
+            {% endif %}
+            <div class="team-name">{{ team.name }}</div>
+        </div>
+    </div>
+    <div class="team-card-divider"></div>
+    <div class="team-card-actions">
+        <div class="team-action team-action--left"><a href="{{ team.history_url }}" class="team-action-link"><i class="fas fa-book"></i> Storia</a></div>
+        <div class="team-action team-action--right"><a href="{{ team.map_url }}" target="_blank" rel="noopener noreferrer" class="team-action-link"><i class="fas fa-map-marker-alt"></i> Città</a></div>
+    </div>
+</div>
