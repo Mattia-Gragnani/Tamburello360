@@ -1570,16 +1570,15 @@ header.scrolled .logo-img {
 
 /* ============ SQUADRE ============ */
 .squadre-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
 }
 
 .team-card {
     position: relative;
     overflow: hidden;
-    max-width: 750px;
+    max-width: 540px;
     width: 100%;
     margin: 0 auto;
     border-radius: 52px;
@@ -2444,7 +2443,7 @@ footer {
     .footer-links { gap: 2rem; }
     .page-header { padding: 2.5rem 1.5rem; }
     .risultati-grid { grid-template-columns: 1fr; }
-    .squadre-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    .squadre-grid { grid-template-columns: 1fr; }
     .links-grid { grid-template-columns: repeat(2, 1fr); }
     .classifiche-controls { margin-bottom: 2rem; }
     .classifiche-page.section { padding-top: 0.4rem; }
