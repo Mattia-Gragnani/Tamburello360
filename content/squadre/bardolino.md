@@ -1,5 +1,4 @@
 ---
-permalink: false
 team_code: BAR
 slug: bardolino
 name: Bardolino

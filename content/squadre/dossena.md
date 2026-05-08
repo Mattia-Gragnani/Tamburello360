@@ -1,5 +1,4 @@
 ---
-permalink: false
 team_code: DOS
 slug: dossena
 name: Dossena

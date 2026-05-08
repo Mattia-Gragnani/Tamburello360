@@ -1,5 +1,4 @@
 ---
-permalink: false
 team_code: CLL
 slug: castellaro
 name: Castellaro

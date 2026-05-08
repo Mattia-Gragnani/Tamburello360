@@ -1,5 +1,4 @@
 ---
-permalink: false
 team_code: SEG
 slug: segno
 name: Segno

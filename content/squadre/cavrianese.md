@@ -1,5 +1,4 @@
 ---
-permalink: false
 team_code: CAV
 slug: cavrianese
 name: Cavrianese

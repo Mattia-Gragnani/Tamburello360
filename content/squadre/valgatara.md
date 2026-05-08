@@ -1,5 +1,4 @@
 ---
-permalink: false
 team_code: VAL
 slug: valgatara
 name: Valgatara

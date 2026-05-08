@@ -1,5 +1,4 @@
 ---
-permalink: false
 team_code: SOL
 slug: solferino
 name: Solferino

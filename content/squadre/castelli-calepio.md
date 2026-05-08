@@ -1,5 +1,4 @@
 ---
-permalink: false
 team_code: CCP
 slug: castelli-calepio
 name: Castelli Calepio

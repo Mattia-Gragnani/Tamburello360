@@ -1,5 +1,4 @@
 ---
-permalink: false
 team_code: CER
 slug: ceresara
 name: Ceresara
