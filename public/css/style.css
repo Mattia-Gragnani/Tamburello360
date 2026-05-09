@@ -1777,7 +1777,9 @@ header.scrolled .logo-img {
     white-space: normal;
     text-align: center;
     line-height: 1.3;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .team-action-link--pill::before {
