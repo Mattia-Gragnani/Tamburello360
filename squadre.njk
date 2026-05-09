@@ -15,6 +15,9 @@ title: Squadre
         <div class="squadre-grid" id="squadreGrid">
             {%- for team in collections.teamDatabase -%}
             <div class="team-card" style="background-color: {{ team.color_primary }};">
+                <span class="classifiche-column-noise" aria-hidden="true"></span>
+                <span class="classifiche-column-orbit" aria-hidden="true"></span>
+                <span class="classifiche-column-slash" aria-hidden="true"></span>
                 <div class="team-card-main">
                     <div class="team-logo-wrap">
                         {%- if team.logo -%}
