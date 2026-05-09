@@ -1727,8 +1727,8 @@ header.scrolled .logo-img {
 
 .team-card-ring {
     position: absolute;
-    bottom: 5%;
-    left: -10%;
+    bottom: 1%;
+    left: -15%;
     width: 79%;
     aspect-ratio: 1;
     border-radius: 50%;
