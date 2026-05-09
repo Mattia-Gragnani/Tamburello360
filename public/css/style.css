@@ -1780,6 +1780,11 @@ header.scrolled .logo-img {
     line-height: 1.3;
 }
 
+.team-action-link--pill svg {
+    flex-shrink: 0;
+    align-self: center;
+}
+
 .team-action-link--pill:hover {
     background: rgba(255,255,255,0.1);
     transform: translateY(-1px);
