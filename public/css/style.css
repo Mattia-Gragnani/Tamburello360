@@ -1766,8 +1766,8 @@ header.scrolled .logo-img {
 }
 
 .team-action-link--pill {
-    background: rgba(0,0,0,0.45);
-    border: 1px solid rgba(255,255,255,0.15);
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.7);
     padding: 0.45rem 1.1rem;
     border-radius: 999px;
     font-size: 0.78rem;
@@ -1777,7 +1777,7 @@ header.scrolled .logo-img {
 }
 
 .team-action-link--pill:hover {
-    background: rgba(0,0,0,0.65);
+    background: rgba(255,255,255,0.1);
     transform: translateY(-1px);
     color: white;
 }
