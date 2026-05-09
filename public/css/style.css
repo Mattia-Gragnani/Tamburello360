@@ -1715,7 +1715,7 @@ header.scrolled .logo-img {
 .team-card-rect {
     position: absolute;
     top: 2%;
-    right: 2%;
+    right: -8%;
     width: 30%;
     aspect-ratio: 1;
     border-radius: 36px;
