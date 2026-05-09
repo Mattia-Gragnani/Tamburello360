@@ -1774,6 +1774,7 @@ header.scrolled .logo-img {
     letter-spacing: 2px;
     gap: 0.4rem;
     color: white;
+    white-space: nowrap;
 }
 
 .team-action-link--pill:hover {
