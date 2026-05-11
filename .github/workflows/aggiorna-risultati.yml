@@ -1,9 +1,9 @@
 name: Aggiorna Risultati e Classifiche
 
 on:
-  # Gira ogni notte alle 23:00 ora italiana (22:00 UTC)
+  # Gira ogni 30 minuti per controllare eventuali partite in corso
   schedule:
-    - cron: '0 22 * * *'
+    - cron: '*/30 * * * *'
   
   # Permette di lanciarlo manualmente dalla tab Actions su GitHub
   workflow_dispatch:

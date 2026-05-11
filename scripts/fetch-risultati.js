@@ -103,7 +103,7 @@ function parsePartite(html, campionato, giornata) {
     if (!casa || !ospite) continue;
 
     // Controlla se la partita è già giocata
-    const scoreContainers = [...block.matchAll(/<div class="score-container">([\s\S]*?)<\/div>\s*<\/div>/g)];
+    const scoreContainers = [...block.matchAll(/<div class="score-container">([\s\S]*?)<\/div>\s*<\/div>/g)]; // Contiene i set vinti
 
     // Partita non ancora giocata
     if (scoreContainers.length === 0) {
@@ -124,31 +124,36 @@ function parsePartite(html, campionato, giornata) {
     }
 
     // Partita giocata — conta set vinti da ciascuna squadra
+    
+    // Se ci sono scoreContainers, la partita è almeno iniziata o finita
     let setCasa = 0;
     let setOspite = 0;
+    let isPlayed = false;
+    let tiebreak = false;
 
     for (const container of scoreContainers) {
       const inner = container[1];
       const divs = [...inner.matchAll(/<div class='set([^']*)'>/g)];
-      if (divs.length < 2) continue;
+      if (divs.length < 2) continue; // Un score-container deve avere almeno due div per i set
       if (divs[0][1].includes('winner')) setCasa++;
       else if (divs[1][1].includes('winner')) setOspite++;
     }
-
-    // Valida che ci sia un vincitore
-    if (setCasa !== 2 && setOspite !== 2) continue;
-
-    const tiebreak = scoreContainers.length === 3;
+    
+    // Una partita è considerata 'giocata' se una squadra ha vinto 2 set.
+    if (setCasa === 2 || setOspite === 2) {
+      isPlayed = true;
+      tiebreak = scoreContainers.length === 3; // Il tiebreak è rilevante solo per partite finite con 3 set
+    }
 
     partite.push({
       casa,
       ospite,
-      scoreCasa: setCasa,
-      scoreOspite: setOspite,
-      tiebreak,
+      scoreCasa: setCasa > 0 ? setCasa : null, // Salva i set attuali, o null se 0
+      scoreOspite: setOspite > 0 ? setOspite : null, // Salva i set attuali, o null se 0
+      tiebreak: isPlayed ? tiebreak : false, // Tiebreak è rilevante solo per partite finite
       data: dataPartita,
       ora: oraPartita,
-      giocata: true,
+      giocata: isPlayed, // True se 2 set vinti, false altrimenti (programmata o in corso)
       giornata: giornata,
       serie: campionato.serie,
       tipo: campionato.tipo,
@@ -167,6 +172,36 @@ function slugify(str) {
     .replace(/[ìíîï]/g, 'i').replace(/[òóôõ]/g, 'o')
     .replace(/[ùúûü]/g, 'u')
     .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+// Funzione per leggere il frontmatter di un file Markdown
+function parseFrontmatter(content) {
+  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  if (!match) return {};
+  
+  const data = {};
+  const lines = match[1].split('\n');
+  
+  for (const line of lines) {
+    const colonIdx = line.indexOf(':');
+    if (colonIdx === -1) continue;
+    const key = line.substring(0, colonIdx).trim();
+    const value = line.substring(colonIdx + 1).trim();
+    
+    if ((value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))) {
+      data[key] = value.slice(1, -1);
+    } else if (value === 'true') {
+      data[key] = true;
+    } else if (value === 'false') {
+      data[key] = false;
+    } else if (!isNaN(value) && value !== '') {
+      data[key] = Number(value);
+    } else {
+      data[key] = value;
+    }
+  }
+  return data;
 }
 
 function generaContenuto(p) {
@@ -197,24 +232,90 @@ function salvaPartita(p) {
   const slug = `${p.data}-${slugify(p.casa)}-vs-${slugify(p.ospite)}`;
   const filepath = path.join(RISULTATI_DIR, `${slug}.md`);
 
-  // Se il file esiste già, sovrascrivilo solo se ora è giocata
+  const newContent = generaContenuto(p);
+
   if (fs.existsSync(filepath)) {
-    const existing = fs.readFileSync(filepath, 'utf8');
-    const isAlreadyPlayed = existing.includes('giocata: true');
-    if (isAlreadyPlayed) return false; // già aggiornato, salta
-    if (!p.giocata) return false;      // ancora da giocare, salta
-    // era da giocare, ora è giocata — aggiorna
+    const existingContent = fs.readFileSync(filepath, 'utf8');
+    
+    // Se il file indica già che è finita, non caricarlo più se il contenuto non cambia
+    const isAlreadyPlayed = existingContent.includes('giocata: true');
+    if (isAlreadyPlayed && !newContent.includes('giocata: true')) return false; 
+    
+    // Se il nuovo contenuto è identico a quello esistente, non c'è bisogno di scrivere.
+    if (newContent === existingContent) {
+      return false;
+    }
+
+    // Se il contenuto è diverso, sovrascriviamo. Questo copre:
+    // - Partita da "da giocare" a "in corso" (con punteggi parziali)
+    // - Partita "in corso" con aggiornamento punteggi
+    // - Partita da "in corso" a "giocata" (con punteggi finali)
+    // - Correzioni a partite già giocate.
+    fs.writeFileSync(filepath, newContent, 'utf8');
+    let logMessage = `  🔄 ${slug} (giornata ${p.giornata}`;
+    if (p.giocata) {
+      logMessage += `, ${p.scoreCasa}-${p.scoreOspite} - FINITA)`;
+    } else if (p.scoreCasa !== null || p.scoreOspite !== null) {
+      logMessage += `, ${p.scoreCasa || '0'}-${p.scoreOspite || '0'} - IN CORSO)`;
+    } else {
+      logMessage += `, da giocare)`;
+    }
+    console.log(logMessage);
+    return true;
   }
 
-  fs.writeFileSync(filepath, generaContenuto(p), 'utf8');
+  // Se il file non esiste, scrivilo sempre
+  fs.writeFileSync(filepath, newContent, 'utf8');
   console.log(`  ✅ ${slug} (giornata ${p.giornata}, ${p.giocata ? `${p.scoreCasa}-${p.scoreOspite}` : 'da giocare'})`);
   return true;
+}
+
+// Decide se avviare il fetch in base all'orario e alle partite locali
+function shouldRunFetch() {
+  const now = new Date();
+  // Ora locale italiana (GitHub usa UTC)
+  const oraItalia = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Rome"}));
+  const currentHour = oraItalia.getHours();
+
+  // 1. Manutenzione: Alle 3 di notte e alle 10 di mattina scarichiamo tutto per sicurezza/sincronizzazione
+  if (currentHour === 3 || currentHour === 10) {
+    console.log("⏰ Finestra di sincronizzazione quotidiana. Avvio fetch...");
+    return true;
+  }
+
+  if (!fs.existsSync(RISULTATI_DIR)) return true;
+
+  const files = fs.readdirSync(RISULTATI_DIR).filter(f => f.endsWith('.md'));
+  if (files.length === 0) return true;
+
+  for (const file of files) {
+    const content = fs.readFileSync(path.join(RISULTATI_DIR, file), 'utf8');
+    const data = parseFrontmatter(content);
+
+    // Consideriamo solo partite non ancora concluse
+    if (data.giocata === true) continue;
+
+    const matchDate = new Date(data.date);
+    const diffMs = now - matchDate;
+    const diffHours = diffMs / (1000 * 60 * 60);
+
+    // Se la partita è prevista tra 1 ora o è iniziata da meno di 12 ore (catch-up dei risultati)
+    if (diffHours >= -1 && diffHours <= 12) {
+      console.log(`🎯 Partita attiva rilevata: ${file}. Avvio fetch...`);
+      return true;
+    }
+  }
+
+  console.log("💤 Nessuna partita imminente o in corso. Esecuzione saltata per risparmiare risorse.");
+  return false;
 }
 
 // ============================================================
 // MAIN
 // ============================================================
 async function main() {
+  if (!shouldRunFetch()) process.exit(0);
+
   let totaleNuovi = 0;
 
   for (const campionato of CAMPIONATI) {
@@ -235,6 +336,14 @@ async function main() {
         if (partite.length === 0) {
           console.log('nessuna partita trovata');
           continue;
+        }
+        
+        // Ottimizzazione: se tutte le partite di questa giornata sono ancora "da giocare"
+        // e non ci sono punteggi parziali, assumiamo che le giornate successive siano anch'esse da giocare e fermiamo il ciclo.
+        const allDaGiocareNoScores = partite.every(p => !p.giocata && p.scoreCasa === null && p.scoreOspite === null);
+        if (allDaGiocareNoScores && g > 1) { // Non fermare alla prima giornata se è vuota
+          console.log('tutte da giocare senza punteggi, stop');
+          break; 
         }
 
         console.log(`${partite.length} partite`);
