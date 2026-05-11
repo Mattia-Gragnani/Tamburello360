@@ -197,7 +197,14 @@ function salvaPartita(p) {
   const slug = `${p.data}-${slugify(p.casa)}-vs-${slugify(p.ospite)}`;
   const filepath = path.join(RISULTATI_DIR, `${slug}.md`);
 
-  if (fs.existsSync(filepath)) return false;
+  // Se il file esiste già, sovrascrivilo solo se ora è giocata
+  if (fs.existsSync(filepath)) {
+    const existing = fs.readFileSync(filepath, 'utf8');
+    const isAlreadyPlayed = existing.includes('giocata: true');
+    if (isAlreadyPlayed) return false; // già aggiornato, salta
+    if (!p.giocata) return false;      // ancora da giocare, salta
+    // era da giocare, ora è giocata — aggiorna
+  }
 
   fs.writeFileSync(filepath, generaContenuto(p), 'utf8');
   console.log(`  ✅ ${slug} (giornata ${p.giornata}, ${p.giocata ? `${p.scoreCasa}-${p.scoreOspite}` : 'da giocare'})`);
