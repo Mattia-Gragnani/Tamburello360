@@ -3,51 +3,68 @@ layout: base.njk
 title: Tamburello360 - La Casa Indipendente del Tamburello Italiano
 ---
 
-{# 1. HERO SECTION: EMOZIONE E UTILITÀ #}
-<section class="hero-magazine">
-  <div class="hero-overlay"></div>
-  <div class="hero-content container">
-    <div class="hero-text">
-      <span class="badge-indipendente">Progetto Indipendente</span>
-      <h1>Il battito della <span class="highlight">Terra Rossa</span></h1>
-      <p>Non siamo la federazione. Siamo la community. Risultati, storie e passione per lo sport più autentico d'Italia.</p>
-      <div class="hero-actions">
-        <a href="/partite/" class="btn btn-primary">Match Center</a>
-        <a href="#progetto" class="btn btn-outline">Scopri la Mission</a>
-      </div>
-    </div>
-    
-    {# Mini Widget Prossima Partita #}
-    {% set nextMatch = collections.partiteEnriched | selectattr("is_recommended", "equalto", true) | first %}
-    {% if nextMatch %}
-    <div class="hero-widget">
-      <h3>In Evidenza</h3>
-      <div class="match-mini-card">
-        <div class="match-teams">
-          <span>{{ nextMatch.home_team.name }}</span>
-          <span class="vs">vs</span>
-          <span>{{ nextMatch.away_team.name }}</span>
-        </div>
-        <div class="match-info">
-          {{ nextMatch.date_day_label }} ore {{ nextMatch.date_time_label }}
-        </div>
-        <a href="{{ nextMatch.info_url }}" class="link-overlay">Info Match</a>
-      </div>
-    </div>
-    {% endif %}
+{# 1. NUOVA HERO STAGE: CINEMATOGRAFICA ED EDITORIALE #}
+<section class="hero-stage">
+  <div class="hero-bg-container">
+    <div class="hero-vignette"></div>
+    <img src="/images/uploads/hero-bg.jpg" alt="Tamburello Action" class="hero-img">
   </div>
-</section>
 
-{# 2. RISULTATI RECENTI: IL TICKER DINAMICO #}
-<div class="results-ticker">
-  <div class="container flex-ticker">
-    <span class="ticker-label">Ultimi Risultati:</span>
-    <div class="ticker-items">
-      {% for match in collections.partiteRecenti | limit(5) %}
-        <div class="ticker-item">
-          <strong>{{ match.squadra_casa }}</strong> {{ match.gol_casa }} - {{ match.gol_ospite }} <strong>{{ match.squadra_ospite }}</strong>
+  <div class="hero-main-content container">
+    <div class="hero-branding">
+      <span class="hero-badge">Indipendente dal 2025</span>
+      <h1 class="hero-title">POLVERE. <br><span class="highlight">GLORIA.</span> <br>TAMBURELLO.</h1>
+      <p class="hero-description">L'anima del tamburello italiano raccontata da chi lo vive ogni giorno.</p>
+      <div class="hero-cta-group">
+        <a href="/partite/" class="btn btn-primary">Match Center</a>
+        <a href="/blog/" class="btn btn-outline">Storie di Campo</a>
+      </div>
+    </div>
+
+    {# Widget Dati Integrato #}
+    <div class="hero-sidebar-data">
+      {% set nextMatch = collections.partiteEnriched | selectattr("is_recommended", "equalto", true) | first %}
+      {% if nextMatch %}
+      <div class="hero-featured-match">
+        <span class="live-indicator">Prossimo Match</span>
+        <div class="match-teams-box">
+          <div class="team">
+            <span class="team-name">{{ nextMatch.home_team.name }}</span>
+          </div>
+          <div class="vs-circle">VS</div>
+          <div class="team">
+            <span class="team-name">{{ nextMatch.away_team.name }}</span>
+          </div>
         </div>
-      {% endfor %}
+        <div class="match-footer">
+          <span class="match-date">{{ nextMatch.date_day_label }} • {{ nextMatch.date_time_label }}</span>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="hero-standings-mini">
+        <h4>Top 3 Serie A</h4>
+        {% for team in collections.classificheSerieA[0].data.teams | limit(3) %}
+          <div class="standing-row">
+            <span>{{ loop.index }}° {{ team.name }}</span>
+            <strong>{{ team.points }}</strong>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {# Bottom Live Ticker #}
+  <div class="hero-live-bar">
+    <div class="container">
+      <div class="ticker-wrap">
+        <span class="ticker-title">Flash Score</span>
+        <div class="ticker-scroll">
+          {% for match in collections.partiteRecenti | limit(6) %}
+            <span class="ticker-match"><strong>{{ match.squadra_casa }}</strong> {{ match.gol_casa }}-{{ match.gol_ospite }} <strong>{{ match.squadra_ospite }}</strong></span>
+          {% endfor %}
+        </div>
+      </div>
     </div>
   </div>
 </div>
