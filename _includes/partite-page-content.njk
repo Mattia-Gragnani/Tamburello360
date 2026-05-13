@@ -94,8 +94,8 @@
                 `;
 
             const mapAction = match.map_url
-                ? `<a class="partita-action-link" href="${escapeHtml(match.map_url)}" target="_blank" rel="noreferrer">📍 <span>DOVE</span></a>`
-                : `<span class="partita-action-link is-disabled" aria-disabled="true">📍 <span>DOVE</span></span>`;
+                ? `<a class="partita-action-link" href="${escapeHtml(match.map_url)}" target="_blank" rel="noreferrer"><span>Dove</span></a>`
+                : `<span class="partita-action-link is-disabled" aria-disabled="true"><span>Dove</span></span>`;
 
             return `
                 <article class="partita-card" style="background:${escapeHtml(match.gradient)}">
@@ -118,7 +118,7 @@
                             ${mapAction}
                         </div>
                         <div class="partita-action partita-action--right">
-                            <a class="partita-action-link" href="${escapeHtml(match.info_url)}">ℹ️ <span>INFO</span></a>
+                            <a class="partita-action-link" href="${escapeHtml(match.info_url)}"><span>Info</span></a>
                         </div>
                     </div>
                 </article>

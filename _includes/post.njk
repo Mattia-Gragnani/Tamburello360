@@ -14,12 +14,12 @@ layout: base.njk
                 <span class="post-category">{{ category }}</span>
                 {%- endif -%}
                 <div class="post-meta-text">
-                    <span>📅 {{ date | readableDate }}</span>
+                    <span>{{ date | readableDate }}</span>
                     {%- if reading_time -%}
-                    <span>· ⏱ {{ reading_time }} min di lettura</span>
+                    <span>&middot; {{ reading_time }} min di lettura</span>
                     {%- endif -%}
                     {%- if author -%}
-                    <span>· ✍️ {{ author }}</span>
+                    <span>&middot; {{ author }}</span>
                     {%- endif -%}
                 </div>
             </div>
@@ -31,7 +31,7 @@ layout: base.njk
         </div>
 
         <div class="post-footer">
-            <a href="/blog/" class="back-btn">← Torna al blog</a>
+            <a href="/blog/" class="back-btn">&larr; Torna al blog</a>
         </div>
     </div>
 </article>

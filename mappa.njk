@@ -30,7 +30,7 @@ title: Mappa delle Squadre
     const map = L.map('map').setView([45.4, 10.4], 8);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a>',
+        attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a>',
         maxZoom: 18
     }).addTo(map);
 
@@ -70,11 +70,11 @@ title: Mappa delle Squadre
             <strong style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;color:#003049;">${s.nome}</strong>
             <div style="margin-top:0.35rem;font-size:0.82rem;color:#666;">Codice squadra: <strong>${s.team_code}</strong></div>
             <div style="margin-top:0.35rem;font-size:0.85rem;color:#666;">
-                📍 ${s.citta}<br>
-                🏆 Serie A
+                Localita: ${s.citta}<br>
+                Campionato: Serie A
             </div>`;
         if (s.description) popup += `<p style="margin-top:0.5rem;font-size:0.82rem;color:#888;">${s.description}</p>`;
-        if (s.website) popup += `<a href="${s.website}" target="_blank" style="display:inline-block;margin-top:0.5rem;color:#f77f00;font-weight:700;font-size:0.85rem;">Sito web →</a>`;
+        if (s.website) popup += `<a href="${s.website}" target="_blank" style="display:inline-block;margin-top:0.5rem;color:#f77f00;font-weight:700;font-size:0.85rem;">Sito web &rarr;</a>`;
         popup += `</div>`;
 
         marker.bindPopup(popup);

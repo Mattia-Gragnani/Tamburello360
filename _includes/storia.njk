@@ -5,8 +5,7 @@ layout: base.njk
 
 <style>
     .squadra-storia-page { background: var(--gray-50); }
-    
-    /* HERO SECTION */
+
     .squadra-hero {
         background: var(--black);
         color: white;
@@ -45,7 +44,6 @@ layout: base.njk
         font-weight: 700;
     }
 
-    /* INFO BAR */
     .info-bar-squadra {
         background: white;
         border-bottom: 1px solid var(--gray-200);
@@ -98,7 +96,7 @@ layout: base.njk
         <div class="container squadra-hero-content">
             {% if team.logo %}<img src="{{ team.logo }}" alt="" class="squadra-hero-logo">{% endif %}
             <h1 class="squadra-hero-title">{{ team.name }}</h1>
-            <div class="squadra-hero-city">📍 {{ team.city }}</div>
+            <div class="squadra-hero-city">{{ team.city }}</div>
         </div>
     </header>
 
@@ -116,9 +114,7 @@ layout: base.njk
             <h2 class="roster-role-title">La Storia</h2>
             {{ content | safe }}
             <div class="post-footer">
-                <a href="/squadre/" class="back-btn">
-                    <i class="fas fa-arrow-left"></i> Tutte le Squadre
-                </a>
+                <a href="/squadre/" class="back-btn">&larr; Tutte le Squadre</a>
             </div>
         </div>
     </div>
