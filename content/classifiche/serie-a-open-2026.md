@@ -2,7 +2,7 @@
 serie: Serie A Open
 tipo: outdoor
 year: 2026
-updated: 2026-05-13T01:24:18.953Z
+updated: 2026-05-13T05:27:52.563Z
 teams:
   - position: 1
     name: Castelli Calepio
