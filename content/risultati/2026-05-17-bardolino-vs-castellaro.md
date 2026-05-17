@@ -6,7 +6,7 @@ giornata: 8
 home_team: Bardolino
 away_team: Castellaro
 home_score: 
-away_score: 
+away_score: 1
 tiebreak: false
 giocata: false
 auto_generated: true
