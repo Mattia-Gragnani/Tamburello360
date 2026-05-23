@@ -2,7 +2,7 @@
 serie: Serie A Open
 tipo: outdoor
 year: 2026
-updated: 2026-05-23T16:04:52.798Z
+updated: 2026-05-23T19:19:15.894Z
 teams:
   - position: 1
     name: Dossena
@@ -20,11 +20,11 @@ teams:
     played: 8
   - position: 3
     name: Ceresara
-    points: 18
-    wins: 6
+    points: 20
+    wins: 7
     draws: 0
     losses: 2
-    played: 8
+    played: 9
   - position: 4
     name: Segno
     points: 17
@@ -34,11 +34,11 @@ teams:
     played: 9
   - position: 5
     name: Arcene
-    points: 15
+    points: 16
     wins: 5
     draws: 0
-    losses: 3
-    played: 8
+    losses: 4
+    played: 9
   - position: 6
     name: Castellaro
     points: 10
