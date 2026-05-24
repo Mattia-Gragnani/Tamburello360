@@ -73,6 +73,8 @@ module.exports = function(eleventyConfig) {
       giornata: m.giornata,
       is_played: m.is_played,
       is_recommended: m.is_recommended,
+      home_score: m.gol_casa,
+      away_score: m.gol_ospite,
       score_label: m.score_label,
       date_day_label: m.date_day_label,
       date_time_label: m.date_time_label,
@@ -83,12 +85,14 @@ module.exports = function(eleventyConfig) {
       home_team: {
         name: m.home_team.name,
         logo: m.home_team.logo,
-        initial: m.home_team.initial
+        initial: m.home_team.initial,
+        slug: m.home_team.slug
       },
       away_team: {
         name: m.away_team.name,
         logo: m.away_team.logo,
-        initial: m.away_team.initial
+        initial: m.away_team.initial,
+        slug: m.away_team.slug
       }
     }));
   });

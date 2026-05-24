@@ -140,7 +140,11 @@ layout: base.njk
                 <h2 class="roster-role-title">Ultime Partite</h2>
                 <div class="squadra-matches-list">
                     {% for partita in partiteGiocate | reverse | limit(5) %}
-                    <a href="{{ partita.info_url }}" class="squadra-match-row" style="background: {{ partita.gradient }}">
+                    {% set teamWon = (partita.home_team.slug == team.slug and partita.gol_casa > partita.gol_ospite) or (partita.away_team.slug == team.slug and partita.gol_ospite > partita.gol_casa) %}
+                    {% set teamLost = (partita.home_team.slug == team.slug and partita.gol_casa < partita.gol_ospite) or (partita.away_team.slug == team.slug and partita.gol_ospite < partita.gol_casa) %}
+                    {% set resultState = 'win' if teamWon else ('loss' if teamLost else 'played') %}
+                    {% set resultLabel = 'Vittoria' if teamWon else ('Sconfitta' if teamLost else 'Finale') %}
+                    <a href="{{ partita.info_url }}" class="squadra-match-row is-{{ resultState }}" style="background: {{ partita.gradient }}">
                         <div class="squadra-match-home">
                             {%- if partita.home_team.logo -%}
                             <img src="{{ partita.home_team.logo }}" alt="{{ partita.home_team.name }}"
@@ -152,7 +156,10 @@ layout: base.njk
                             {%- endif -%}
                             <span class="squadra-match-name">{{ partita.home_team.name }}</span>
                         </div>
-                        <div class="squadra-match-score">{{ partita.score_label }}</div>
+                        <div class="squadra-match-score">
+                            <span>{{ partita.score_label }}</span>
+                            <span class="squadra-match-result-tag is-{{ resultState }}">{{ resultLabel }}</span>
+                        </div>
                         <div class="squadra-match-away">
                             <span class="squadra-match-name">{{ partita.away_team.name }}</span>
                             {%- if partita.away_team.logo -%}

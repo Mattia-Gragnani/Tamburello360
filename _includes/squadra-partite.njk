@@ -36,6 +36,7 @@
 
     (function () {
         const teamName = {{ team.name | dump | safe }};
+        const teamSlug = {{ team.slug | dump | safe }};
         const list = document.getElementById('teamPartiteList');
         const roundLabel = document.getElementById('teamPartiteRoundLabel');
         const roundChips = document.getElementById('teamPartiteRoundChips');
@@ -133,21 +134,52 @@
             renderRoundChips();
         }
 
+        function getMatchResult(match) {
+            if (!match.is_played) {
+                return { state: 'scheduled', label: 'In Programma' };
+            }
+
+            const homeScore = Number(match.home_score);
+            const awayScore = Number(match.away_score);
+            const isHomeTeam = match.home_team && match.home_team.slug === teamSlug;
+            const isAwayTeam = match.away_team && match.away_team.slug === teamSlug;
+
+            if (!Number.isFinite(homeScore) || !Number.isFinite(awayScore) || (!isHomeTeam && !isAwayTeam)) {
+                return { state: 'played', label: 'Finale' };
+            }
+
+            const teamScore = isHomeTeam ? homeScore : awayScore;
+            const opponentScore = isHomeTeam ? awayScore : homeScore;
+
+            if (teamScore > opponentScore) {
+                return { state: 'win', label: 'Vittoria' };
+            }
+
+            if (teamScore < opponentScore) {
+                return { state: 'loss', label: 'Sconfitta' };
+            }
+
+            return { state: 'played', label: 'Parità' };
+        }
+
         function buildCenterContent(match) {
+            const result = getMatchResult(match);
+
             if (match.is_played) {
                 return `
                     <div class="squadra-archive-score">${escapeHtml(match.score_label)}</div>
-                    <div class="squadra-archive-meta">Finale · ${escapeHtml(match.date_day_label || '')}</div>
+                    <div class="squadra-archive-meta"><span class="squadra-match-result-tag is-${result.state}">${escapeHtml(result.label)}</span> ${escapeHtml(match.date_day_label || '')}</div>
                 `;
             }
 
             return `
                 <div class="squadra-archive-score squadra-archive-score--scheduled">${escapeHtml(match.date_time_label || '--:--')}</div>
-                <div class="squadra-archive-meta">${escapeHtml(match.date_day_label || 'Data da definire')}</div>
+                <div class="squadra-archive-meta"><span class="squadra-match-result-tag is-${result.state}">${escapeHtml(result.label)}</span> ${escapeHtml(match.date_day_label || 'Data da definire')}</div>
             `;
         }
 
         function renderMatchRow(match) {
+            const result = getMatchResult(match);
             const homeLogo = match.home_team && match.home_team.logo
                 ? `<img class="squadra-match-logo" src="${escapeHtml(match.home_team.logo)}" alt="Logo ${escapeHtml(match.home_team.name)}"
                         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -163,7 +195,7 @@
             return `
                 <a
                     href="${escapeHtml(match.info_url)}"
-                    class="squadra-match-row squadra-match-row--archive"
+                    class="squadra-match-row squadra-match-row--archive is-${result.state}"
                     aria-label="${escapeHtml(match.home_team.name)} contro ${escapeHtml(match.away_team.name)}"
                     style="background:${escapeHtml(match.gradient)}"
                 >
