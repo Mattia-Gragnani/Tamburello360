@@ -75,7 +75,8 @@ title: Classifiche
             team_code: {{ team.team_code | dump | safe }},
             name: {{ team.name | dump | safe }},
             slug: {{ team.slug | dump | safe }},
-            logo: {{ team.logo | dump | safe }}
+            logo: {{ team.logo | dump | safe }},
+            history_url: {{ team.history_url | dump | safe }}
         }{%- if not loop.last -%},{%- endif -%}
         {%- endfor -%}
     ];
@@ -237,6 +238,7 @@ title: Classifiche
             const resolvedTeam = resolveTeam(team);
             const teamName = resolvedTeam && resolvedTeam.name ? resolvedTeam.name : (team.name || team.team_code || '?');
             const logo = resolvedTeam && resolvedTeam.logo ? resolvedTeam.logo : '';
+            const historyUrl = resolvedTeam && resolvedTeam.history_url ? resolvedTeam.history_url : '';
             const isPodio = index < 3;
             const relegatedSlots = Number.isFinite(Number(retrocesse)) ? Math.max(Number(retrocesse), 0) : 1;
             const relegationStart = relegatedSlots > 0 ? (totalTeams - relegatedSlots + 1) : totalTeams + 1;
@@ -248,6 +250,9 @@ title: Classifiche
                        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                    <span class="classifica-team-placeholder" style="display:none" aria-hidden="true">${initial}</span>`
                 : `<span class="classifica-team-placeholder" aria-hidden="true">${initial}</span>`;
+            const teamLabelHtml = historyUrl
+                ? `<a class="classifica-team-link" href="${escapeHtml(historyUrl)}">${logoHtml}<span class="classifica-team-name">${escapeHtml(teamName)}</span></a>`
+                : `${logoHtml}<span class="classifica-team-name">${escapeHtml(teamName)}</span>`;
 
             return `
                 <div class="classifica-row${isRelegated ? ' is-relegated' : ''}">
@@ -255,8 +260,7 @@ title: Classifiche
                         ${team.position || index + 1}
                     </div>
                     <div class="classifica-team">
-                        ${logoHtml}
-                        <span class="classifica-team-name">${escapeHtml(teamName)}</span>
+                        ${teamLabelHtml}
                     </div>
                     <div class="classifica-points">${team.points || 0}</div>
                     <div class="classifica-form" aria-label="Ultime cinque partite">
