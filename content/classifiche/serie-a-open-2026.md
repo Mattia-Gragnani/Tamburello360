@@ -2,22 +2,22 @@
 serie: Serie A Open
 tipo: outdoor
 year: 2026
-updated: 2026-05-24T16:33:52.963Z
+updated: 2026-05-24T18:01:51.823Z
 teams:
   - position: 1
     name: Dossena
-    points: 24
-    wins: 8
+    points: 26
+    wins: 9
     draws: 0
     losses: 0
-    played: 8
+    played: 9
   - position: 2
     name: Solferino
-    points: 24
+    points: 25
     wins: 8
     draws: 0
-    losses: 0
-    played: 8
+    losses: 1
+    played: 9
   - position: 3
     name: Ceresara
     points: 20
@@ -41,11 +41,11 @@ teams:
     played: 9
   - position: 6
     name: Castellaro
-    points: 10
-    wins: 3
+    points: 13
+    wins: 4
     draws: 0
     losses: 5
-    played: 8
+    played: 9
   - position: 7
     name: Cavrianese
     points: 9
@@ -65,8 +65,8 @@ teams:
     points: 3
     wins: 1
     draws: 0
-    losses: 7
-    played: 8
+    losses: 8
+    played: 9
   - position: 10
     name: Valgatara
     points: 1
