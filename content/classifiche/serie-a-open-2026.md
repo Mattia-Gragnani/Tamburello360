@@ -2,7 +2,7 @@
 serie: Serie A Open
 tipo: outdoor
 year: 2026
-updated: 2026-05-27T18:39:15.979Z
+updated: 2026-05-27T21:04:39.176Z
 teams:
   - position: 1
     name: Dossena
