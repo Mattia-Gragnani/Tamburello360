@@ -5,7 +5,7 @@ tipo: outdoor
 giornata: 10
 home_team: Segno
 away_team: Castelli Calepio
-home_score: 
+home_score: 1
 away_score: 
 tiebreak: false
 giocata: false
