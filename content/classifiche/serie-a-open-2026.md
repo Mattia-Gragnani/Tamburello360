@@ -2,7 +2,7 @@
 serie: Serie A Open
 tipo: outdoor
 year: 2026
-updated: 2026-05-31T23:06:02.684Z
+updated: 2026-06-01T01:40:53.072Z
 teams:
   - position: 1
     name: Solferino
