@@ -1,10 +1,10 @@
 ---
-date: 2026-06-02T17:00:00.000+01:00
+date: 2026-06-10T16:30:00.000+01:00
 serie: Serie A Open
 tipo: outdoor
 giornata: 11
-home_team: Ceresara
-away_team: Castellaro
+home_team: Arcene
+away_team: Segno
 home_score: 
 away_score: 
 tiebreak: false

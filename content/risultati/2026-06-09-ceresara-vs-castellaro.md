@@ -1,5 +1,5 @@
 ---
-date: 2026-06-02T17:00:00.000+01:00
+date: 2026-06-09T17:00:00.000+01:00
 serie: Serie A Open
 tipo: outdoor
 giornata: 11
