@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-04-30-arcene-vs-solferino
 date: 2026-04-30T16:30:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

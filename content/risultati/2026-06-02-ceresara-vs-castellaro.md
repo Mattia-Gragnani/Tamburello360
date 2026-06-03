@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-06-02-ceresara-vs-castellaro
 date: 2026-06-02T17:00:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

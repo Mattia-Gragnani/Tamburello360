@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-03-29-bardolino-vs-dossena
 date: 2026-03-29T15:00:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

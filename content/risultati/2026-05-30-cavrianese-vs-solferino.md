@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-05-30-cavrianese-vs-solferino
 date: 2026-05-30T16:00:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

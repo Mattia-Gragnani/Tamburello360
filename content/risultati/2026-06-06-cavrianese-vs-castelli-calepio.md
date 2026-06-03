@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-06-06-cavrianese-vs-castelli-calepio
 date: 2026-06-06T16:00:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

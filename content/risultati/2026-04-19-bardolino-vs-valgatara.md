@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-04-19-bardolino-vs-valgatara
 date: 2026-04-19T15:30:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

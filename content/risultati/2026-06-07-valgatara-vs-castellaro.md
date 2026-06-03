@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-06-07-valgatara-vs-castellaro
 date: 2026-06-07T16:00:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-07-14-solferino-vs-castellaro
 date: 2026-07-14T21:30:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

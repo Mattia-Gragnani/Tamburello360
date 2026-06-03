@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-05-16-arcene-vs-valgatara
 date: 2026-05-16T16:00:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

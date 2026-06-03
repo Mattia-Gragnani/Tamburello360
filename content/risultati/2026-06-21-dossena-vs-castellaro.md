@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-06-21-dossena-vs-castellaro
 date: 2026-06-21T16:00:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

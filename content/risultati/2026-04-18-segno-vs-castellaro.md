@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-04-18-segno-vs-castellaro
 date: 2026-04-18T15:30:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

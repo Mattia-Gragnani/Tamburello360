@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-06-27-arcene-vs-bardolino
 date: 2026-06-27T21:30:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

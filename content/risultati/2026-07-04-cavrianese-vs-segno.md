@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-07-04-cavrianese-vs-segno
 date: 2026-07-04T21:30:00.000+01:00
 serie: Serie A Open
 tipo: outdoor

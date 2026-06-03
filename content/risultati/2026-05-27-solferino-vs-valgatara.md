@@ -1,4 +1,5 @@
----
+﻿---
+id: 2026-05-27-solferino-vs-valgatara
 date: 2026-05-27T18:00:00.000+01:00
 serie: Serie A Open
 tipo: outdoor
