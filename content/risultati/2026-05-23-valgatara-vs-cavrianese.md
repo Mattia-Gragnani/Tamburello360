@@ -1,4 +1,4 @@
-﻿---
+---
 id: 2026-05-23-valgatara-vs-cavrianese
 date: 2026-05-23T16:00:00.000+01:00
 serie: Serie A Open

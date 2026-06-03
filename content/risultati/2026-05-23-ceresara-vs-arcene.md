@@ -1,4 +1,4 @@
-﻿---
+---
 id: 2026-05-23-ceresara-vs-arcene
 date: 2026-05-23T15:15:00.000+01:00
 serie: Serie A Open

@@ -1,4 +1,4 @@
-﻿---
+---
 id: 2026-04-23-solferino-vs-castelli-calepio
 date: 2026-04-23T16:00:00.000+01:00
 serie: Serie A Open

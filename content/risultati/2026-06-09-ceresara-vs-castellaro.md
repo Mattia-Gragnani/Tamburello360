@@ -1,4 +1,4 @@
-﻿---
+---
 id: 2026-06-09-ceresara-vs-castellaro
 date: 2026-06-09T17:00:00.000+01:00
 serie: Serie A Open

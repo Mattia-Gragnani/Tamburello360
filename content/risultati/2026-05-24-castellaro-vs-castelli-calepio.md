@@ -1,4 +1,4 @@
-﻿---
+---
 id: 2026-05-24-castellaro-vs-castelli-calepio
 date: 2026-05-24T16:00:00.000+01:00
 serie: Serie A Open

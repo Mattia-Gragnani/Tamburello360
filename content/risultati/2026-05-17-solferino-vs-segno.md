@@ -1,4 +1,4 @@
-﻿---
+---
 id: 2026-05-17-solferino-vs-segno
 date: 2026-05-17T16:00:00.000+01:00
 serie: Serie A Open

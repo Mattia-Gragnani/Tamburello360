@@ -1,4 +1,4 @@
-﻿---
+---
 id: 2026-05-30-castellaro-vs-arcene
 date: 2026-05-30T16:00:00.000+01:00
 serie: Serie A Open

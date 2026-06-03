@@ -1,4 +1,4 @@
-﻿---
+---
 id: 2026-04-25-valgatara-vs-segno
 date: 2026-04-25T15:30:00.000+01:00
 serie: Serie A Open

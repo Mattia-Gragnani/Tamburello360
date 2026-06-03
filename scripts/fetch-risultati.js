@@ -21,14 +21,13 @@ const CAMPIONATI = [
     tipo: 'outdoor',
     giornate: 18,
   },
-  // Aggiungi altri campionati qui:
-  // {
-  //   tid: ???,
-  //   round: ???,
-  //   serie: 'Serie B Open - Girone A',
-  //   tipo: 'outdoor',
-  //   giornate: 18,
-  // },
+  {
+    tid: 116,
+    round: null,
+    serie: 'Serie B Open',
+    tipo: 'outdoor',
+    giornate: 18,
+  },
 ];
 
 const RISULTATI_DIR = path.join(__dirname, '..', 'content', 'risultati');
@@ -181,11 +180,12 @@ function slugify(str) {
     .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-function generaContenuto(p) {
+function generaContenuto(p, id) {
   const scoreHome = p.scoreCasa !== null ? p.scoreCasa : '';
   const scoreAway = p.scoreOspite !== null ? p.scoreOspite : '';
 
   return `---
+id: ${id}
 date: ${p.data}T${p.ora}:00.000+01:00
 serie: ${p.serie}
 tipo: ${p.tipo}
@@ -209,7 +209,7 @@ function salvaPartita(p) {
   const slug = `${p.data}-${slugify(p.casa)}-vs-${slugify(p.ospite)}`;
   const filepath = path.join(RISULTATI_DIR, `${slug}.md`);
 
-  const newContent = generaContenuto(p);
+  const newContent = generaContenuto(p, slug);
 
   if (fs.existsSync(filepath)) {
     const existingContent = fs.readFileSync(filepath, 'utf8');
@@ -249,6 +249,11 @@ function salvaPartita(p) {
 
 // Decide se avviare il fetch in base all'orario e alle partite locali
 function shouldRunFetch() {
+  if (process.argv.includes('--force')) {
+    console.log("Forzatura manuale richiesta. Avvio fetch...");
+    return true;
+  }
+
   const now = new Date();
   // Ora locale italiana (GitHub usa UTC)
   const oraItalia = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Rome"}));
