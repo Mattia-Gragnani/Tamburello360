@@ -1,7 +1,12 @@
 <section class="section partite-page" data-serie="A">
     <div class="container">
-        <div class="partite-serie-badge-wrap">
-            <div class="partite-serie-badge">SERIE A</div>
+        <div class="classifiche-serie-switch" role="tablist" aria-label="Seleziona serie">
+            <button class="classifiche-serie-btn is-active" type="button" role="tab" aria-selected="true" data-serie="A">
+                Serie A
+            </button>
+            <button class="classifiche-serie-btn" type="button" role="tab" aria-selected="false" data-serie="B">
+                Serie B
+            </button>
         </div>
 
         <div class="partite-round-nav" aria-label="Navigazione giornate">
@@ -26,14 +31,17 @@
     window.partiteData = {{ collections.partiteEnriched | toPartiteClientData | dump | safe }};
 
     (function () {
+        const page = document.querySelector('.partite-page');
         const list = document.getElementById('partiteList');
         const roundLabel = document.getElementById('partiteRoundLabel');
         const prevButton = document.getElementById('partitePrevRound');
         const nextButton = document.getElementById('partiteNextRound');
+        const serieButtons = Array.from(document.querySelectorAll('.partite-page .classifiche-serie-btn'));
         const matches = Array.isArray(window.partiteData) ? window.partiteData : [];
         let renderTimer = null;
 
         const state = {
+            serie: 'A',
             giornata: 1
         };
 
@@ -46,17 +54,41 @@
                 .replace(/'/g, '&#39;');
         }
 
+        function normalizeSerie(value) {
+            const serie = String(value || '').trim().toUpperCase();
+            return serie === 'B' ? 'B' : 'A';
+        }
+
+        function getSerieMatches() {
+            return matches.filter(match => normalizeSerie(match.serie) === state.serie);
+        }
+
         function getMaxRound() {
-            if (!matches.length) {
+            const serieMatches = getSerieMatches();
+
+            if (!serieMatches.length) {
                 return 1;
             }
 
-            return matches.reduce((maxRound, match) => Math.max(maxRound, Number(match.giornata) || 1), 1);
+            return serieMatches.reduce((maxRound, match) => Math.max(maxRound, Number(match.giornata) || 1), 1);
         }
 
         function getCurrentRound() {
-            const recommended = matches.find(m => m.is_recommended);
+            const serieMatches = getSerieMatches();
+            const recommended = serieMatches.find(m => m.is_recommended);
             return recommended ? Number(recommended.giornata) : 1;
+        }
+
+        function updateSerieSwitch() {
+            if (page) {
+                page.dataset.serie = state.serie;
+            }
+
+            serieButtons.forEach(button => {
+                const isActive = normalizeSerie(button.dataset.serie) === state.serie;
+                button.classList.toggle('is-active', isActive);
+                button.setAttribute('aria-selected', String(isActive));
+            });
         }
 
         function updateRoundNav() {
@@ -132,13 +164,13 @@
         function renderEmptyState() {
             list.innerHTML = `
                 <div class="empty-state">
-                    <p>Nessuna partita inserita per Serie A alla giornata ${state.giornata}.</p>
+                    <p>Nessuna partita inserita per Serie ${state.serie} alla giornata ${state.giornata}.</p>
                 </div>
             `;
         }
 
         function renderList() {
-            const roundMatches = matches.filter(match => Number(match.giornata) === state.giornata);
+            const roundMatches = getSerieMatches().filter(match => Number(match.giornata) === state.giornata);
 
             list.style.opacity = '0.4';
             list.style.transition = 'opacity 0.18s ease';
@@ -159,6 +191,7 @@
         function render() {
             const maxRound = getMaxRound();
             state.giornata = Math.min(Math.max(1, state.giornata), maxRound);
+            updateSerieSwitch();
             updateRoundNav();
             renderList();
         }
@@ -180,6 +213,14 @@
 
             state.giornata += 1;
             render();
+        });
+
+        serieButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                state.serie = normalizeSerie(button.dataset.serie);
+                state.giornata = getCurrentRound();
+                render();
+            });
         });
 
         state.giornata = getCurrentRound();

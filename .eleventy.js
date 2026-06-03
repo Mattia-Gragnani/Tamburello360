@@ -70,6 +70,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("toPartiteClientData", function(matches) {
     return (matches || []).map(m => ({
       id: m.id,
+      serie: m.serie,
+      serie_label: m.serie_label,
       giornata: m.giornata,
       is_played: m.is_played,
       is_recommended: m.is_recommended,

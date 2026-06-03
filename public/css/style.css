@@ -1649,27 +1649,68 @@ footer {
         linear-gradient(135deg, var(--partite-primary) 0%, var(--partite-accent) 100%);
 }
 
-.partite-serie-badge-wrap {
+.partite-page .classifiche-serie-switch {
     display: flex;
-    justify-content: center;
-    margin-bottom: clamp(1rem, 2vw, 1.4rem);
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    margin: 0 auto 2rem;
+    padding: 0.35rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
 }
 
-.partite-serie-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 54px;
-    padding: 0.85rem 1.5rem;
+.partite-page .classifiche-serie-btn {
+    border: 2px solid currentColor;
     border-radius: 999px;
-    background: linear-gradient(135deg, var(--partite-primary) 0%, var(--partite-accent) 100%);
-    color: white;
+    background: transparent;
+    color: #E87722;
+    cursor: pointer;
     font-family: var(--font-condensed);
-    font-size: 0.92rem;
+    font-size: clamp(0.92rem, 2vw, 1.05rem);
     font-weight: 800;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    min-width: 8.25rem;
+    padding: 0.85rem 1.5rem;
     text-transform: uppercase;
-    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.14);
+    transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.partite-page .classifiche-serie-btn:hover {
+    transform: translateY(-1px);
+}
+
+.partite-page .classifiche-serie-btn[data-serie="B"] {
+    color: #2E7D32;
+}
+
+.partite-page .classifiche-serie-btn.is-active {
+    background: #E87722;
+    border-color: #E87722;
+    color: white;
+    box-shadow: 0 10px 22px rgba(232, 119, 34, 0.25);
+}
+
+.partite-page .classifiche-serie-btn[data-serie="B"].is-active {
+    background: #2E7D32;
+    border-color: #2E7D32;
+    color: white;
+    box-shadow: 0 10px 22px rgba(46, 125, 50, 0.25);
+}
+
+@media (max-width: 700px) {
+    .partite-page .classifiche-serie-switch {
+        width: 100%;
+    }
+
+    .partite-page .classifiche-serie-btn {
+        min-width: 0;
+        flex: 1;
+        padding-inline: 0.85rem;
+    }
 }
 
 .partite-round-nav {
