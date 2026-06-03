@@ -143,10 +143,22 @@ module.exports = function(eleventyConfig) {
     return collectionApi
       .getFilteredByGlob("content/classifiche/*.md")
       .filter(c => {
-        const serie = String(c.data.serie || '').toLowerCase();
-        return serie.includes('serie a');
+        const serie = String(c.data.serie || '').trim().toLowerCase();
+        return serie === 'a' || serie.includes('serie a');
       })
       .sort((a, b) => (b.data.year || 0) - (a.data.year || 0));
+  });
+
+  eleventyConfig.addCollection("classifichePerSerie", function(collectionApi) {
+    const allowedSeries = new Set(['A', 'B']);
+    return collectionApi
+      .getFilteredByGlob("content/classifiche/*.md")
+      .filter(c => allowedSeries.has(String(c.data.serie || '').trim().toUpperCase()))
+      .sort((a, b) => {
+        const yearDiff = (b.data.year || 0) - (a.data.year || 0);
+        if (yearDiff !== 0) return yearDiff;
+        return String(a.data.serie || '').localeCompare(String(b.data.serie || ''));
+      });
   });
 
   // ============================================================

@@ -178,6 +178,12 @@ function inferTipoDaSerie(serieName) {
   return /indoor/i.test(serieName) ? 'indoor' : 'outdoor';
 }
 
+function inferSerieCode(serieName) {
+  if (/serie\s*b/i.test(serieName)) return 'B';
+  if (/serie\s*a/i.test(serieName)) return 'A';
+  return serieName;
+}
+
 function leggiMetadataClassificaEsistente(filepath) {
   if (!fs.existsSync(filepath)) {
     return {};
@@ -205,7 +211,7 @@ function generaClassificaMd(serieName, squadreOrdinati, metadata = {}) {
   });
 
   return `---
-serie: ${serieName}
+serie: ${inferSerieCode(serieName)}
 tipo: ${tipo}
 year: ${anno}
 ${metadata.retrocesse !== undefined ? `retrocesse: ${metadata.retrocesse}\n` : ''}updated: ${oggi}

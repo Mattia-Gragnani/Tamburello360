@@ -1,5 +1,5 @@
 ---
-serie: Serie A Open
+serie: A
 tipo: outdoor
 year: 2026
 updated: 2026-05-24T10:33:01.398Z

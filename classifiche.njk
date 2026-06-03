@@ -7,48 +7,215 @@ title: Classifiche
     <h1>Classifiche</h1>
 </div>
 
-<section class="section classifiche-page classifiche-page--single" data-mode="outdoor">
-    <div class="container">
-        <div class="classifiche-controls classifiche-controls--single" aria-label="Controlli classifiche">
-            <div class="classifiche-year-switch" aria-label="Seleziona anno">
-                <div class="classifiche-year-label">Anno</div>
-                <div class="classifiche-year-dropdown">
-                    <button
-                        class="classifiche-year-trigger"
-                        id="classifiche-year-trigger"
-                        type="button"
-                        aria-haspopup="listbox"
-                        aria-expanded="false"
-                    >
-                        <span id="classifiche-year-current"></span>
-                        <span class="classifiche-year-chevron" aria-hidden="true"></span>
-                    </button>
-                    <div class="classifiche-year-menu" id="classifiche-year-menu" role="listbox" aria-label="Anni disponibili"></div>
-                </div>
-            </div>
-        </div>
+<style>
+    .classifiche-page-local {
+        --serie-a: #E87722;
+        --serie-b: #2E7D32;
+    }
 
-        <div class="classifiche-board classifiche-board--single">
-            <div class="classifiche-column classifiche-column--a">
-                <div class="classifiche-column-header">
-                    <span class="classifiche-column-noise" aria-hidden="true"></span>
-                    <span class="classifiche-column-orbit" aria-hidden="true"></span>
-                    <span class="classifiche-column-slash" aria-hidden="true"></span>
-                    <h2>SERIE A</h2>
-                </div>
-                <div class="classifiche-column-body" id="classifiche-serie-a"></div>
+    .classifiche-page-local .classifiche-serie-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0 auto 2rem;
+        padding: 0.35rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+    }
+
+    .classifiche-page-local .classifiche-serie-btn {
+        border: 2px solid currentColor;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--serie-a);
+        cursor: pointer;
+        font-family: var(--font-condensed);
+        font-size: clamp(0.92rem, 2vw, 1.05rem);
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        line-height: 1;
+        min-width: 8.25rem;
+        padding: 0.85rem 1.35rem;
+        text-transform: uppercase;
+        transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .classifiche-page-local .classifiche-serie-btn:hover {
+        transform: translateY(-1px);
+    }
+
+    .classifiche-page-local .classifiche-serie-btn[data-serie="B"] {
+        color: var(--serie-b);
+    }
+
+    .classifiche-page-local .classifiche-serie-btn.is-active {
+        background: var(--serie-a);
+        border-color: var(--serie-a);
+        color: white;
+        box-shadow: 0 10px 22px rgba(232, 119, 34, 0.25);
+    }
+
+    .classifiche-page-local .classifiche-serie-btn[data-serie="B"].is-active {
+        background: var(--serie-b);
+        border-color: var(--serie-b);
+        color: white;
+        box-shadow: 0 10px 22px rgba(46, 125, 50, 0.25);
+    }
+
+    .classifiche-page-local .classifiche-local-wrap {
+        max-width: 58rem;
+        margin: 0 auto;
+    }
+
+    .classifiche-page-local .classifica-card {
+        overflow: hidden;
+    }
+
+    .classifiche-page-local .classifica-card-head {
+        align-items: center;
+    }
+
+    .classifiche-page-local .classifica-top-three {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.85rem;
+        padding: 0 1rem 1rem;
+    }
+
+    .classifiche-page-local .classifica-podium-card {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        padding: 0.9rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.76);
+        border: 1px solid rgba(155, 163, 175, 0.14);
+    }
+
+    .classifiche-page-local .classifica-medal {
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        font-size: 1.15rem;
+        background: #f3f4f6;
+    }
+
+    .classifiche-page-local .classifica-medal.is-gold {
+        background: #FFD700;
+    }
+
+    .classifiche-page-local .classifica-medal.is-silver {
+        background: #C0C0C0;
+    }
+
+    .classifiche-page-local .classifica-medal.is-bronze {
+        background: #CD7F32;
+    }
+
+    .classifiche-page-local .classifica-podium-name {
+        display: block;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-family: var(--font-condensed);
+        font-weight: 800;
+        color: var(--navy);
+        text-transform: uppercase;
+    }
+
+    .classifiche-page-local .classifica-podium-points {
+        display: block;
+        font-family: var(--font-condensed);
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--gray-400);
+        text-transform: uppercase;
+    }
+
+    .classifiche-page-local .classifica-head-row,
+    .classifiche-page-local .classifica-row {
+        grid-template-columns: 48px minmax(0, 1fr) repeat(4, minmax(42px, 58px));
+    }
+
+    .classifiche-page-local .classifica-stat {
+        text-align: right;
+        font-family: var(--font-condensed);
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: var(--navy);
+    }
+
+    .classifiche-page-local .classifica-head-row span:nth-child(n+3) {
+        text-align: right;
+    }
+
+    .classifiche-page-local .classifica-empty-panel {
+        margin: 0;
+    }
+
+    @media (max-width: 700px) {
+        .classifiche-page-local .classifiche-serie-switch {
+            width: 100%;
+        }
+
+        .classifiche-page-local .classifiche-serie-btn {
+            min-width: 0;
+            flex: 1;
+            padding-inline: 0.85rem;
+        }
+
+        .classifiche-page-local .classifica-top-three {
+            grid-template-columns: 1fr;
+        }
+
+        .classifiche-page-local .classifica-head-row,
+        .classifiche-page-local .classifica-row {
+            grid-template-columns: 38px minmax(0, 1fr) repeat(4, minmax(30px, 40px));
+            gap: 0.45rem;
+        }
+
+        .classifiche-page-local .classifica-team-logo,
+        .classifiche-page-local .classifica-team-placeholder {
+            display: none;
+        }
+
+        .classifiche-page-local .classifica-stat {
+            font-size: 0.95rem;
+        }
+    }
+</style>
+
+<section class="section classifiche-page classifiche-page-local" data-mode="outdoor">
+    <div class="container">
+        <div class="classifiche-local-wrap">
+            <div class="classifiche-serie-switch" role="tablist" aria-label="Seleziona serie">
+                <button class="classifiche-serie-btn is-active" type="button" role="tab" aria-selected="true" data-serie="A">
+                    Serie A
+                </button>
+                <button class="classifiche-serie-btn" type="button" role="tab" aria-selected="false" data-serie="B">
+                    Serie B
+                </button>
             </div>
+
+            <div id="classifiche-output" aria-live="polite"></div>
         </div>
     </div>
 </section>
 
 <script>
     window.classificheData = [
-        {%- for classifica in collections.classificheSerieA -%}
+        {%- for classifica in collections.classifichePerSerie -%}
         {
             serie: {{ (classifica.data.serie or '') | dump | safe }},
             year: {{ (classifica.data.year or '') | dump | safe }},
-            retrocesse: {{ classifica.data.retrocesse or 1 }},
             updated: {{ (classifica.data.updated or '') | dump | safe }},
             teams: [
                 {%- for team in classifica.data.teams or [] -%}
@@ -59,9 +226,7 @@ title: Classifiche
                     points: {{ team.points or 0 }},
                     wins: {{ team.wins or 0 }},
                     draws: {{ team.draws or 0 }},
-                    losses: {{ team.losses or 0 }},
-                    played: {{ team.played or 0 }},
-                    form: {{ (team.form or team.lastFive or team.last_five or team.recent or '') | dump | safe }}
+                    losses: {{ team.losses or 0 }}
                 }{%- if not loop.last -%},{%- endif -%}
                 {%- endfor -%}
             ]
@@ -82,19 +247,13 @@ title: Classifiche
     ];
 
     (function () {
-        const yearTrigger = document.getElementById('classifiche-year-trigger');
-        const yearCurrent = document.getElementById('classifiche-year-current');
-        const yearMenu = document.getElementById('classifiche-year-menu');
-        const serieAContainer = document.getElementById('classifiche-serie-a');
-
-        const state = {
-            year: null,
-            yearMenuOpen: false
-        };
-
+        const output = document.getElementById('classifiche-output');
+        const buttons = Array.from(document.querySelectorAll('.classifiche-serie-btn'));
         const data = Array.isArray(window.classificheData) ? window.classificheData : [];
-        const teams = Array.isArray(window.teamDatabase) ? window.teamDatabase : [];
-        const teamLookup = teams.reduce((acc, team) => {
+        const teamData = Array.isArray(window.teamDatabase) ? window.teamDatabase : [];
+        const state = { serie: 'A' };
+
+        const teamLookup = teamData.reduce((acc, team) => {
             const code = String(team.team_code || '').trim().toUpperCase();
             const slug = normalizeKey(team.slug || '');
             const name = normalizeKey(team.name || '');
@@ -106,20 +265,16 @@ title: Classifiche
             return acc;
         }, {});
 
-        const years = Array.from(
-            new Set(
-                data
-                    .map(item => Number(item.year))
-                    .filter(year => Number.isFinite(year))
-            )
-        ).sort((a, b) => b - a);
-
-        state.year = years[0] || new Date().getFullYear();
-
-        if (yearTrigger) {
-            yearTrigger.addEventListener('click', () => {
-                setYearMenuOpen(!state.yearMenuOpen);
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                state.serie = normalizeSerie(button.dataset.serie);
+                render();
             });
+        });
+
+        function normalizeSerie(value) {
+            const serie = String(value || '').trim().toUpperCase();
+            return serie === 'B' ? 'B' : 'A';
         }
 
         function normalizeKey(value) {
@@ -139,93 +294,15 @@ title: Classifiche
                 .replace(/'/g, '&#39;');
         }
 
-        function setYearMenuOpen(isOpen) {
-            state.yearMenuOpen = isOpen;
-
-            if (yearTrigger) {
-                yearTrigger.setAttribute('aria-expanded', String(isOpen));
-                yearTrigger.classList.toggle('is-open', isOpen);
-            }
-
-            if (yearMenu) {
-                yearMenu.classList.toggle('is-open', isOpen);
-            }
-        }
-
-        function renderYears() {
-            if (!yearCurrent || !yearMenu) {
-                return;
-            }
-
-            if (!years.length) {
-                yearCurrent.textContent = 'Nessun anno';
-                yearMenu.innerHTML = '<span class="classifiche-year-empty">Nessun anno disponibile</span>';
-                return;
-            }
-
-            yearCurrent.textContent = String(state.year);
-            yearMenu.innerHTML = years.map(year => {
-                const isActive = year === state.year;
-                return `
-                    <button
-                        class="classifiche-year-option${isActive ? ' is-active' : ''}"
-                        type="button"
-                        data-year="${year}"
-                        role="option"
-                        aria-selected="${isActive}"
-                    >
-                        ${year}
-                    </button>
-                `;
-            }).join('');
-
-            yearMenu.querySelectorAll('.classifiche-year-option').forEach(button => {
-                button.addEventListener('click', () => {
-                    const nextYear = Number(button.dataset.year);
-                    if (!Number.isFinite(nextYear)) {
-                        return;
-                    }
-
-                    state.year = nextYear;
-                    setYearMenuOpen(false);
-                    render();
-                });
+        function formatDate(value) {
+            if (!value) return '';
+            const date = new Date(value);
+            if (Number.isNaN(date.getTime())) return '';
+            return date.toLocaleDateString('it-IT', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
             });
-        }
-
-        function normalizeFormEntry(entry) {
-            const value = String(entry || '').trim().toUpperCase();
-            if (value === 'W' || value === 'V') return 'W';
-            if (value === 'L' || value === 'S') return 'L';
-            if (value === 'D' || value === 'P' || value === 'X' || value === 'N') return 'D';
-            return 'N';
-        }
-
-        function buildFallbackForm(team) {
-            const fallback = [];
-            const wins = Number(team.wins) || 0;
-            const draws = Number(team.draws) || 0;
-            const losses = Number(team.losses) || 0;
-
-            for (let i = 0; i < Math.min(wins, 5); i += 1) fallback.push('W');
-            for (let i = 0; i < Math.min(draws, 5 - fallback.length); i += 1) fallback.push('D');
-            for (let i = 0; i < Math.min(losses, 5 - fallback.length); i += 1) fallback.push('L');
-            while (fallback.length < 5) fallback.push('N');
-
-            return fallback.slice(0, 5);
-        }
-
-        function getTeamForm(team) {
-            if (Array.isArray(team.form) && team.form.length) {
-                return team.form.map(normalizeFormEntry).slice(0, 5);
-            }
-
-            if (typeof team.form === 'string' && team.form.trim()) {
-                const compact = team.form.includes(',') ? team.form.split(',') : team.form.trim().split('');
-                return compact.map(normalizeFormEntry).slice(0, 5);
-            }
-
-            return buildFallbackForm(team);
         }
 
         function resolveTeam(team) {
@@ -234,69 +311,99 @@ title: Classifiche
             return teamLookup[code] || teamLookup[name] || null;
         }
 
-        function renderTeamRow(team, index, totalTeams, retrocesse) {
+        function renderTeamIdentity(team) {
             const resolvedTeam = resolveTeam(team);
             const teamName = resolvedTeam && resolvedTeam.name ? resolvedTeam.name : (team.name || team.team_code || '?');
             const logo = resolvedTeam && resolvedTeam.logo ? resolvedTeam.logo : '';
             const historyUrl = resolvedTeam && resolvedTeam.history_url ? resolvedTeam.history_url : '';
-            const isPodio = index < 3;
-            const relegatedSlots = Number.isFinite(Number(retrocesse)) ? Math.max(Number(retrocesse), 0) : 1;
-            const relegationStart = relegatedSlots > 0 ? (totalTeams - relegatedSlots + 1) : totalTeams + 1;
-            const isRelegated = index + 1 >= relegationStart;
             const initial = escapeHtml((teamName || '?').trim().charAt(0) || '?');
-            const form = getTeamForm(team);
             const logoHtml = logo
                 ? `<img class="classifica-team-logo" src="${escapeHtml(logo)}" alt="Logo ${escapeHtml(teamName)}"
                        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                    <span class="classifica-team-placeholder" style="display:none" aria-hidden="true">${initial}</span>`
                 : `<span class="classifica-team-placeholder" aria-hidden="true">${initial}</span>`;
-            const teamLabelHtml = historyUrl
-                ? `<a class="classifica-team-link" href="${escapeHtml(historyUrl)}">${logoHtml}<span class="classifica-team-name">${escapeHtml(teamName)}</span></a>`
-                : `${logoHtml}<span class="classifica-team-name">${escapeHtml(teamName)}</span>`;
+            const content = `${logoHtml}<span class="classifica-team-name">${escapeHtml(teamName)}</span>`;
+
+            return historyUrl
+                ? `<a class="classifica-team-link" href="${escapeHtml(historyUrl)}">${content}</a>`
+                : content;
+        }
+
+        function renderPodium(teams) {
+            const medals = ['is-gold', 'is-silver', 'is-bronze'];
+            const icons = ['🥇', '🥈', '🥉'];
 
             return `
-                <div class="classifica-row${isRelegated ? ' is-relegated' : ''}">
-                    <div class="classifica-pos${isPodio ? ' is-top-' + (index + 1) : index === totalTeams - 1 ? ' is-last' : ''}">
-                        ${team.position || index + 1}
-                    </div>
-                    <div class="classifica-team">
-                        ${teamLabelHtml}
-                    </div>
-                    <div class="classifica-points">${team.points || 0}</div>
-                    <div class="classifica-form" aria-label="Ultime cinque partite">
-                        ${form.map(result => `
-                            <span class="classifica-form-dot is-${result.toLowerCase()}" data-result="${result}"></span>
-                        `).join('')}
-                    </div>
+                <div class="classifica-top-three" aria-label="Prime tre squadre">
+                    ${teams.slice(0, 3).map((team, index) => {
+                        const resolvedTeam = resolveTeam(team);
+                        const teamName = resolvedTeam && resolvedTeam.name ? resolvedTeam.name : (team.name || team.team_code || '?');
+
+                        return `
+                            <div class="classifica-podium-card">
+                                <span class="classifica-medal ${medals[index]}" aria-hidden="true">${icons[index]}</span>
+                                <span>
+                                    <span class="classifica-podium-name">${escapeHtml(teamName)}</span>
+                                    <span class="classifica-podium-points">${team.points || 0} pt</span>
+                                </span>
+                            </div>
+                        `;
+                    }).join('')}
                 </div>
             `;
         }
 
-        function renderClassificaCard(classifica) {
+        function renderRow(team, index) {
+            return `
+                <div class="classifica-row">
+                    <div class="classifica-pos${index < 3 ? ' is-top-' + (index + 1) : ''}">
+                        ${team.position || index + 1}
+                    </div>
+                    <div class="classifica-team">
+                        ${renderTeamIdentity(team)}
+                    </div>
+                    <div class="classifica-points">${team.points || 0}</div>
+                    <div class="classifica-stat">${team.wins || 0}</div>
+                    <div class="classifica-stat">${team.draws || 0}</div>
+                    <div class="classifica-stat">${team.losses || 0}</div>
+                </div>
+            `;
+        }
+
+        function renderClassifica(classifica) {
+            const serieLabel = `Serie ${normalizeSerie(classifica.serie)}`;
             const teams = Array.isArray(classifica.teams) ? classifica.teams : [];
-            const retrocesse = Number(classifica.retrocesse);
+            const updated = formatDate(classifica.updated);
+            const title = `${serieLabel} ${classifica.year || ''}${updated ? ' - Aggiornata al ' + updated : ''}`;
 
             if (!teams.length) {
                 return `
                     <article class="classifica-card">
-                        <div class="classifica-empty">
-                            Nessuna squadra inserita per questa classifica.
+                        <div class="classifica-card-head">
+                            <h3>${escapeHtml(title)}</h3>
                         </div>
+                        <div class="classifica-empty">Nessuna squadra inserita per questa classifica.</div>
                     </article>
                 `;
             }
 
             return `
                 <article class="classifica-card">
-                    <div class="classifica-card-table" role="table" aria-label="Serie A ${escapeHtml(classifica.year)}">
+                    <div class="classifica-card-head">
+                        <h3>${escapeHtml(title)}</h3>
+                    </div>
+                    ${renderPodium(teams)}
+                    <div class="classifica-card-table" role="table" aria-label="${escapeHtml(title)}">
                         <div class="classifica-head-row" role="row">
-                            <span>Pos</span>
+                            <span>#</span>
                             <span>Squadra</span>
                             <span>Pt</span>
-                            <span>Ultime 5</span>
+                            <span>V</span>
+                            <span>P</span>
+                            <span>S</span>
                         </div>
                         <div class="classifica-body">
-                            ${teams.map((team, index) => renderTeamRow(team, index, teams.length, retrocesse)).join('')}
+                            ${teams.map(renderRow).join('')}
                         </div>
                     </div>
                 </article>
@@ -304,32 +411,20 @@ title: Classifiche
         }
 
         function render() {
-            renderYears();
-            const filtered = data.filter(item => Number(item.year) === state.year);
+            buttons.forEach(button => {
+                const isActive = normalizeSerie(button.dataset.serie) === state.serie;
+                button.classList.toggle('is-active', isActive);
+                button.setAttribute('aria-selected', String(isActive));
+            });
 
-            if (!filtered.length) {
-                serieAContainer.innerHTML = `
-                    <div class="classifica-empty classifica-empty-panel">
-                        Nessuna classifica disponibile per Serie A nell'anno ${state.year}.
-                    </div>
-                `;
-                return;
-            }
+            const selected = data
+                .filter(classifica => normalizeSerie(classifica.serie) === state.serie)
+                .sort((a, b) => Number(b.year || 0) - Number(a.year || 0));
 
-            serieAContainer.innerHTML = filtered.map(renderClassificaCard).join('');
+            output.innerHTML = selected.length
+                ? selected.map(renderClassifica).join('')
+                : `<div class="classifica-empty classifica-empty-panel">Nessuna classifica disponibile per Serie ${state.serie}.</div>`;
         }
-
-        document.addEventListener('click', event => {
-            if (!event.target.closest('.classifiche-year-dropdown')) {
-                setYearMenuOpen(false);
-            }
-        });
-
-        document.addEventListener('keydown', event => {
-            if (event.key === 'Escape') {
-                setYearMenuOpen(false);
-            }
-        });
 
         render();
     }());

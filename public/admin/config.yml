@@ -58,7 +58,7 @@ collections:
     min: 1
 
 - name: classifiche
-  label: Classifica Serie A
+  label: Classifiche
   folder: content/classifiche
   create: true
   slug: "{{slug}}"
@@ -69,8 +69,13 @@ collections:
     default: false
   - label: Serie
     name: serie
-    widget: hidden
-    default: Serie A
+    widget: select
+    default: A
+    options:
+    - label: Serie A
+      value: A
+    - label: Serie B
+      value: B
   - label: Tipo
     name: tipo
     widget: hidden
