@@ -14,19 +14,41 @@ title: Classifiche
     }
 
     .classifiche-page-local .classifiche-serie-switch {
+        position: relative;
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
         margin: 0 auto 2rem;
-        padding: 0.35rem;
+        padding: 0.3rem;
         border-radius: 999px;
         background: rgba(255, 255, 255, 0.78);
         border: 1px solid rgba(15, 23, 42, 0.08);
         box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
     }
 
+    .classifiche-page-local .classifiche-serie-switch::before {
+        content: '';
+        position: absolute;
+        top: 0.3rem;
+        left: 0.3rem;
+        width: calc(50% - 0.3rem);
+        height: calc(100% - 0.6rem);
+        border-radius: 999px;
+        background: var(--serie-a);
+        box-shadow: 0 10px 22px rgba(232, 119, 34, 0.25);
+        transition: transform 0.35s cubic-bezier(0.34, 1.36, 0.64, 1), background 0.35s ease, box-shadow 0.35s ease;
+        pointer-events: none;
+    }
+
+    .classifiche-page-local .classifiche-serie-switch.is-b::before {
+        transform: translateX(100%);
+        background: var(--serie-b);
+        box-shadow: 0 10px 22px rgba(46, 125, 50, 0.25);
+    }
+
     .classifiche-page-local .classifiche-serie-btn {
-        border: 2px solid currentColor;
+        position: relative;
+        z-index: 1;
+        border: none;
         border-radius: 999px;
         background: transparent;
         color: var(--serie-a);
@@ -39,7 +61,15 @@ title: Classifiche
         min-width: 8.25rem;
         padding: 0.85rem 1.35rem;
         text-transform: uppercase;
-        transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
+        transition: color 0.25s ease;
+    }
+
+    .classifiche-page-local .classifiche-serie-btn[data-serie="B"] {
+        color: var(--serie-b);
+    }
+
+    .classifiche-page-local .classifiche-serie-btn.is-active {
+        color: white;
     }
 
     .classifiche-page-local .classifiche-serie-btn:hover {
@@ -69,7 +99,7 @@ title: Classifiche
         margin: 0 auto;
     }
 
-    @media (max-width: 700px) {
+   @media (max-width: 700px) {
         .classifiche-page-local .classifiche-serie-switch {
             width: 100%;
         }
@@ -323,6 +353,9 @@ title: Classifiche
         }
 
         function render() {
+            const switchEl = document.querySelector('.classifiche-serie-switch');
+            switchEl.classList.toggle('is-b', state.serie === 'B');
+
             buttons.forEach(button => {
                 const isActive = normalizeSerie(button.dataset.serie) === state.serie;
                 button.classList.toggle('is-active', isActive);
