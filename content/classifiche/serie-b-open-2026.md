@@ -2,7 +2,7 @@
 serie: B
 tipo: outdoor
 year: 2026
-updated: 2026-06-07T00:10:21.485Z
+updated: 2026-06-07T05:08:45.843Z
 teams:
   - position: 1
     name: Castelnuovo
