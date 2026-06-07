@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-06-07T05:08:45.844Z
+updated: 2026-06-07T08:36:38.382Z
 teams:
   - position: 1
     name: Dossena
@@ -20,18 +20,18 @@ teams:
     played: 11
   - position: 3
     name: Ceresara
-    points: 23
+    points: 24
     wins: 8
     draws: 0
-    losses: 2
-    played: 10
+    losses: 3
+    played: 11
   - position: 4
     name: Segno
-    points: 20
-    wins: 7
+    points: 22
+    wins: 8
     draws: 0
     losses: 3
-    played: 10
+    played: 11
   - position: 5
     name: Arcene
     points: 19
@@ -48,11 +48,11 @@ teams:
     played: 10
   - position: 7
     name: Cavrianese
-    points: 9
-    wins: 3
+    points: 12
+    wins: 4
     draws: 0
     losses: 7
-    played: 10
+    played: 11
   - position: 8
     name: Bardolino
     points: 5
@@ -65,8 +65,8 @@ teams:
     points: 3
     wins: 1
     draws: 0
-    losses: 10
-    played: 11
+    losses: 11
+    played: 12
   - position: 10
     name: Valgatara
     points: 1
