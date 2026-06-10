@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-06-10T16:23:28.935Z
+updated: 2026-06-10T19:13:58.699Z
 teams:
   - position: 1
     name: Dossena
@@ -48,18 +48,18 @@ teams:
     played: 12
   - position: 7
     name: Cavrianese
-    points: 12
+    points: 13
     wins: 4
     draws: 0
-    losses: 7
-    played: 11
+    losses: 8
+    played: 12
   - position: 8
     name: Bardolino
-    points: 5
-    wins: 2
+    points: 7
+    wins: 3
     draws: 0
     losses: 9
-    played: 11
+    played: 12
   - position: 9
     name: Castelli Calepio
     points: 3
