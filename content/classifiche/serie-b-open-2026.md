@@ -2,7 +2,7 @@
 serie: B
 tipo: outdoor
 year: 2026
-updated: 2026-06-13T05:05:54.276Z
+updated: 2026-06-13T08:38:25.505Z
 teams:
   - position: 1
     name: Castelnuovo
@@ -19,33 +19,33 @@ teams:
     losses: 4
     played: 12
   - position: 3
+    name: Fumane
+    points: 19
+    wins: 7
+    draws: 0
+    losses: 6
+    played: 13
+  - position: 4
     name: Cereta
     points: 18
     wins: 6
     draws: 0
     losses: 6
     played: 12
-  - position: 4
+  - position: 5
     name: Fontigo
     points: 17
     wins: 7
     draws: 0
     losses: 5
     played: 12
-  - position: 5
+  - position: 6
     name: Cavaion
     points: 16
     wins: 6
     draws: 0
-    losses: 6
-    played: 12
-  - position: 6
-    name: Fumane
-    points: 16
-    wins: 6
-    draws: 0
-    losses: 6
-    played: 12
+    losses: 7
+    played: 13
   - position: 7
     name: Arcene
     points: 16
