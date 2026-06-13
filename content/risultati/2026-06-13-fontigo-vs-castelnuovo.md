@@ -6,9 +6,9 @@ tipo: outdoor
 giornata: 13
 home_team: Fontigo
 away_team: Castelnuovo
-home_score: 
-away_score: 1
-tiebreak: false
-giocata: false
+home_score: 1
+away_score: 2
+tiebreak: true
+giocata: true
 auto_generated: true
 ---

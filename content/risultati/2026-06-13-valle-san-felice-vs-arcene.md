@@ -6,9 +6,9 @@ tipo: outdoor
 giornata: 13
 home_team: Valle San Felice
 away_team: Arcene
-home_score: 
-away_score: 
-tiebreak: false
-giocata: false
+home_score: 1
+away_score: 2
+tiebreak: true
+giocata: true
 auto_generated: true
 ---
