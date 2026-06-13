@@ -1,4 +1,4 @@
-﻿---
+---
 id: 2026-06-14-arcene-vs-cavrianese
 date: 2026-06-14T16:00:00.000+01:00
 serie: Serie A Open
