@@ -7,8 +7,8 @@ giornata: 13
 home_team: Dossena
 away_team: Ceresara
 home_score: 1
-away_score: 
-tiebreak: false
-giocata: false
+away_score: 2
+tiebreak: true
+giocata: true
 auto_generated: true
 ---
