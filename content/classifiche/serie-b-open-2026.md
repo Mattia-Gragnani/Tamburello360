@@ -2,7 +2,7 @@
 serie: B
 tipo: outdoor
 year: 2026
-updated: 2026-06-16T17:05:50.393Z
+updated: 2026-06-16T20:25:08.726Z
 teams:
   - position: 1
     name: Castelnuovo
@@ -47,26 +47,26 @@ teams:
     losses: 7
     played: 13
   - position: 7
+    name: Valle San Felice
+    points: 18
+    wins: 5
+    draws: 0
+    losses: 8
+    played: 13
+  - position: 8
     name: Cavaion
     points: 16
     wins: 6
     draws: 0
     losses: 7
     played: 13
-  - position: 8
+  - position: 9
     name: Cinaglio
     points: 15
     wins: 5
     draws: 0
-    losses: 7
-    played: 12
-  - position: 9
-    name: Valle San Felice
-    points: 15
-    wins: 4
-    draws: 0
     losses: 8
-    played: 12
+    played: 13
   - position: 10
     name: Sporminore
     points: 10

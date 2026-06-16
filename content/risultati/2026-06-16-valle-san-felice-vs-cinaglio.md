@@ -6,9 +6,9 @@ tipo: outdoor
 giornata: 11
 home_team: Valle San Felice
 away_team: Cinaglio
-home_score: 
-away_score: 
+home_score: 2
+away_score: 0
 tiebreak: false
-giocata: false
+giocata: true
 auto_generated: true
 ---
