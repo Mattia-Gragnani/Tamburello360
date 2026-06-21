@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-06-20T23:14:39.329Z
+updated: 2026-06-21T01:59:34.804Z
 teams:
   - position: 1
     name: Solferino
@@ -20,18 +20,18 @@ teams:
     played: 13
   - position: 3
     name: Ceresara
-    points: 29
+    points: 32
+    wins: 11
+    draws: 0
+    losses: 3
+    played: 14
+  - position: 4
+    name: Segno
+    points: 28
     wins: 10
     draws: 0
     losses: 3
     played: 13
-  - position: 4
-    name: Segno
-    points: 25
-    wins: 9
-    draws: 0
-    losses: 3
-    played: 12
   - position: 5
     name: Arcene
     points: 19
@@ -51,8 +51,8 @@ teams:
     points: 16
     wins: 5
     draws: 0
-    losses: 8
-    played: 13
+    losses: 9
+    played: 14
   - position: 8
     name: Bardolino
     points: 7
@@ -65,8 +65,8 @@ teams:
     points: 4
     wins: 1
     draws: 0
-    losses: 12
-    played: 13
+    losses: 13
+    played: 14
   - position: 10
     name: Castelli Calepio
     points: 3
