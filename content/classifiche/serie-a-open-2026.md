@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-06-21T15:27:36.348Z
+updated: 2026-06-21T17:08:00.363Z
 teams:
   - position: 1
     name: Solferino
@@ -55,11 +55,11 @@ teams:
     played: 14
   - position: 8
     name: Bardolino
-    points: 7
-    wins: 3
+    points: 10
+    wins: 4
     draws: 0
     losses: 10
-    played: 13
+    played: 14
   - position: 9
     name: Valgatara
     points: 4
@@ -72,6 +72,6 @@ teams:
     points: 3
     wins: 1
     draws: 0
-    losses: 12
-    played: 13
+    losses: 13
+    played: 14
 ---
