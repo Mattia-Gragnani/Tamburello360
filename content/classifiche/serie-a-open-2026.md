@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-06-24T13:37:22.095Z
+updated: 2026-06-24T16:25:51.406Z
 teams:
   - position: 1
     name: Solferino
@@ -30,15 +30,15 @@ teams:
     points: 28
     wins: 10
     draws: 0
-    losses: 3
-    played: 13
+    losses: 4
+    played: 14
   - position: 5
     name: Arcene
-    points: 19
-    wins: 6
+    points: 22
+    wins: 7
     draws: 0
     losses: 7
-    played: 13
+    played: 14
   - position: 6
     name: Castellaro
     points: 16
