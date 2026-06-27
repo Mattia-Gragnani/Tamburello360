@@ -2,7 +2,7 @@
 serie: B
 tipo: outdoor
 year: 2026
-updated: 2026-06-26T23:13:07.858Z
+updated: 2026-06-27T01:29:22.978Z
 teams:
   - position: 1
     name: Noarna
@@ -19,26 +19,26 @@ teams:
     losses: 4
     played: 14
   - position: 3
+    name: Cereta
+    points: 25
+    wins: 8
+    draws: 0
+    losses: 7
+    played: 15
+  - position: 4
     name: Fumane
     points: 22
     wins: 8
     draws: 0
     losses: 6
     played: 14
-  - position: 4
-    name: Cereta
-    points: 22
-    wins: 7
-    draws: 0
-    losses: 7
-    played: 14
   - position: 5
     name: Arcene
     points: 19
     wins: 6
     draws: 0
-    losses: 8
-    played: 14
+    losses: 9
+    played: 15
   - position: 6
     name: Cavaion
     points: 18

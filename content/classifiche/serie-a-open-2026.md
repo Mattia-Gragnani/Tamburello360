@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-06-26T23:13:07.859Z
+updated: 2026-06-27T01:29:22.979Z
 teams:
   - position: 1
     name: Solferino
@@ -40,19 +40,19 @@ teams:
     losses: 7
     played: 14
   - position: 6
+    name: Cavrianese
+    points: 19
+    wins: 6
+    draws: 0
+    losses: 9
+    played: 15
+  - position: 7
     name: Castellaro
     points: 16
     wins: 5
     draws: 0
-    losses: 9
-    played: 14
-  - position: 7
-    name: Cavrianese
-    points: 16
-    wins: 5
-    draws: 0
-    losses: 9
-    played: 14
+    losses: 10
+    played: 15
   - position: 8
     name: Bardolino
     points: 10
