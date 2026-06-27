@@ -6,7 +6,7 @@ tipo: outdoor
 giornata: 15
 home_team: Segno
 away_team: Dossena
-home_score: 
+home_score: 1
 away_score: 
 tiebreak: false
 giocata: false

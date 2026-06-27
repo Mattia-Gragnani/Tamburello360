@@ -7,7 +7,7 @@ giornata: 15
 home_team: Ceresara
 away_team: Solferino
 home_score: 
-away_score: 
+away_score: 1
 tiebreak: false
 giocata: false
 auto_generated: true
