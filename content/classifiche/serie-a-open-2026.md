@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-06-27T20:12:28.194Z
+updated: 2026-06-27T21:39:32.510Z
 teams:
   - position: 1
     name: Solferino
@@ -34,11 +34,11 @@ teams:
     played: 14
   - position: 5
     name: Arcene
-    points: 22
-    wins: 7
+    points: 25
+    wins: 8
     draws: 0
     losses: 7
-    played: 14
+    played: 15
   - position: 6
     name: Cavrianese
     points: 19
@@ -58,8 +58,8 @@ teams:
     points: 10
     wins: 4
     draws: 0
-    losses: 10
-    played: 14
+    losses: 11
+    played: 15
   - position: 9
     name: Valgatara
     points: 4

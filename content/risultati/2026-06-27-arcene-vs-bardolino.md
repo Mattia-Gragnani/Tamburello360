@@ -6,9 +6,9 @@ tipo: outdoor
 giornata: 15
 home_team: Arcene
 away_team: Bardolino
-home_score: 
-away_score: 1
+home_score: 2
+away_score: 0
 tiebreak: false
-giocata: false
+giocata: true
 auto_generated: true
 ---
