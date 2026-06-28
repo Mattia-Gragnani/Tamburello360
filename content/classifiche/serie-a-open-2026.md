@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-06-28T06:24:39.575Z
+updated: 2026-06-28T09:43:05.058Z
 teams:
   - position: 1
     name: Solferino
