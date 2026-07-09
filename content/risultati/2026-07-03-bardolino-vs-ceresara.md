@@ -1,11 +1,11 @@
 ---
-id: 2026-07-04-castelli-calepio-vs-arcene
-date: 2026-07-04T21:30:00.000+01:00
+id: 2026-07-03-bardolino-vs-ceresara
+date: 2026-07-03T21:30:00.000+01:00
 serie: Serie A Open
 tipo: outdoor
 giornata: 16
-home_team: Castelli Calepio
-away_team: Arcene
+home_team: Bardolino
+away_team: Ceresara
 home_score: 0
 away_score: 2
 tiebreak: false
