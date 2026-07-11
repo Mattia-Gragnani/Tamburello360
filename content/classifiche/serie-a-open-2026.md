@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-07-11T06:18:31.167Z
+updated: 2026-07-11T08:21:04.492Z
 teams:
   - position: 1
     name: Dossena
@@ -20,11 +20,11 @@ teams:
     played: 15
   - position: 3
     name: Ceresara
-    points: 35
-    wins: 12
+    points: 38
+    wins: 13
     draws: 0
     losses: 4
-    played: 16
+    played: 17
   - position: 4
     name: Segno
     points: 31
@@ -65,8 +65,8 @@ teams:
     points: 5
     wins: 2
     draws: 0
-    losses: 14
-    played: 16
+    losses: 15
+    played: 17
   - position: 10
     name: Valgatara
     points: 5
