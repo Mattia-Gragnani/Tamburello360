@@ -7,7 +7,7 @@ giornata: 17
 home_team: Dossena
 away_team: Cavrianese
 home_score: 
-away_score: 
+away_score: 1
 tiebreak: false
 giocata: false
 auto_generated: true

@@ -2,7 +2,7 @@
 serie: B
 tipo: outdoor
 year: 2026
-updated: 2026-07-11T19:11:36.018Z
+updated: 2026-07-11T20:24:20.024Z
 teams:
   - position: 1
     name: Noarna
@@ -33,14 +33,14 @@ teams:
     losses: 7
     played: 16
   - position: 5
-    name: Cavaion
-    points: 21
+    name: Fontigo
+    points: 22
     wins: 8
     draws: 0
-    losses: 8
-    played: 16
+    losses: 9
+    played: 17
   - position: 6
-    name: Fontigo
+    name: Cavaion
     points: 21
     wins: 8
     draws: 0
@@ -54,18 +54,18 @@ teams:
     losses: 9
     played: 16
   - position: 8
+    name: Valle San Felice
+    points: 20
+    wins: 6
+    draws: 0
+    losses: 11
+    played: 17
+  - position: 9
     name: Arcene
     points: 19
     wins: 6
     draws: 0
     losses: 10
-    played: 16
-  - position: 9
-    name: Valle San Felice
-    points: 18
-    wins: 5
-    draws: 0
-    losses: 11
     played: 16
   - position: 10
     name: Sporminore
