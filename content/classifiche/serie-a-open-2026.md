@@ -2,15 +2,15 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-07-11T20:24:20.025Z
+updated: 2026-07-11T21:23:52.712Z
 teams:
   - position: 1
     name: Dossena
-    points: 45
-    wins: 15
+    points: 48
+    wins: 16
     draws: 0
     losses: 1
-    played: 16
+    played: 17
   - position: 2
     name: Solferino
     points: 43
@@ -44,8 +44,8 @@ teams:
     points: 19
     wins: 6
     draws: 0
-    losses: 10
-    played: 16
+    losses: 11
+    played: 17
   - position: 7
     name: Castellaro
     points: 16

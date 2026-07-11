@@ -6,7 +6,7 @@ tipo: outdoor
 giornata: 17
 home_team: Segno
 away_team: Solferino
-home_score: 1
+home_score: 
 away_score: 
 tiebreak: false
 giocata: false
