@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-07-14T20:17:08.140Z
+updated: 2026-07-14T21:31:55.376Z
 teams:
   - position: 1
     name: Dossena
@@ -34,11 +34,11 @@ teams:
     played: 17
   - position: 5
     name: Arcene
-    points: 28
-    wins: 9
+    points: 31
+    wins: 10
     draws: 0
     losses: 7
-    played: 16
+    played: 17
   - position: 6
     name: Castellaro
     points: 19
@@ -72,6 +72,6 @@ teams:
     points: 5
     wins: 1
     draws: 0
-    losses: 15
-    played: 16
+    losses: 16
+    played: 17
 ---
