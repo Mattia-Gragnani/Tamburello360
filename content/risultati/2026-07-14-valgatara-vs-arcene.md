@@ -7,7 +7,7 @@ giornata: 17
 home_team: Valgatara
 away_team: Arcene
 home_score: 
-away_score: 
+away_score: 1
 tiebreak: false
 giocata: false
 auto_generated: true
