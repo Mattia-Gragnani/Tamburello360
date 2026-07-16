@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-07-16T06:23:08.925Z
+updated: 2026-07-16T08:41:55.022Z
 teams:
   - position: 1
     name: Dossena
@@ -13,11 +13,11 @@ teams:
     played: 17
   - position: 2
     name: Solferino
-    points: 43
-    wins: 14
+    points: 46
+    wins: 15
     draws: 0
     losses: 2
-    played: 16
+    played: 17
   - position: 3
     name: Ceresara
     points: 38
@@ -44,8 +44,8 @@ teams:
     points: 19
     wins: 6
     draws: 0
-    losses: 10
-    played: 16
+    losses: 11
+    played: 17
   - position: 7
     name: Cavrianese
     points: 19

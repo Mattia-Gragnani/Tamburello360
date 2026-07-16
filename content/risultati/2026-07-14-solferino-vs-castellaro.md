@@ -6,9 +6,9 @@ tipo: outdoor
 giornata: 16
 home_team: Solferino
 away_team: Castellaro
-home_score: 
-away_score: 
+home_score: 2
+away_score: 0
 tiebreak: false
-giocata: false
+giocata: true
 auto_generated: true
 ---
