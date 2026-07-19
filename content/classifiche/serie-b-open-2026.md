@@ -2,7 +2,7 @@
 serie: B
 tipo: outdoor
 year: 2026
-updated: 2026-07-19T22:00:01.735Z
+updated: 2026-07-19T23:03:58.192Z
 teams:
   - position: 1
     name: Noarna
