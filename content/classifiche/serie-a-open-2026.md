@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-07-21T19:38:50.451Z
+updated: 2026-07-21T21:16:05.697Z
 teams:
   - position: 1
     name: Dossena
@@ -27,11 +27,11 @@ teams:
     played: 18
   - position: 4
     name: Segno
-    points: 34
-    wins: 12
+    points: 36
+    wins: 13
     draws: 0
     losses: 5
-    played: 17
+    played: 18
   - position: 5
     name: Arcene
     points: 34
@@ -55,11 +55,11 @@ teams:
     played: 17
   - position: 8
     name: Bardolino
-    points: 10
+    points: 11
     wins: 4
     draws: 0
-    losses: 13
-    played: 17
+    losses: 14
+    played: 18
   - position: 9
     name: Valgatara
     points: 7
