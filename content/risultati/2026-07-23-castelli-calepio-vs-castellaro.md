@@ -6,8 +6,8 @@ tipo: outdoor
 giornata: 18
 home_team: Castelli Calepio
 away_team: Castellaro
-home_score: 
-away_score: 
+home_score: 1
+away_score: 1
 tiebreak: false
 giocata: false
 auto_generated: true
