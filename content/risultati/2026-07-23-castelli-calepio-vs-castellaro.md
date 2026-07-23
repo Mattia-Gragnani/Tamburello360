@@ -7,8 +7,8 @@ giornata: 18
 home_team: Castelli Calepio
 away_team: Castellaro
 home_score: 1
-away_score: 1
-tiebreak: false
-giocata: false
+away_score: 2
+tiebreak: true
+giocata: true
 auto_generated: true
 ---
