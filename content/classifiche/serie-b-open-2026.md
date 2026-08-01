@@ -2,7 +2,7 @@
 serie: B
 tipo: outdoor
 year: 2026
-updated: 2026-08-01T14:37:03.985Z
+updated: 2026-08-01T16:04:40.739Z
 teams:
   - position: 1
     name: Noarna
@@ -26,26 +26,26 @@ teams:
     losses: 8
     played: 18
   - position: 4
+    name: Cinaglio
+    points: 28
+    wins: 10
+    draws: 0
+    losses: 9
+    played: 19
+  - position: 5
     name: Fumane
     points: 27
     wins: 10
     draws: 0
     losses: 8
     played: 18
-  - position: 5
-    name: Cinaglio
-    points: 25
-    wins: 9
-    draws: 0
-    losses: 9
-    played: 18
   - position: 6
     name: Cavaion
     points: 23
     wins: 9
     draws: 0
-    losses: 9
-    played: 18
+    losses: 10
+    played: 19
   - position: 7
     name: Fontigo
     points: 23
