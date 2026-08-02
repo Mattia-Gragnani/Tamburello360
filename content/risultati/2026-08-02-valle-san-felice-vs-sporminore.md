@@ -7,7 +7,7 @@ giornata: 1
 home_team: Valle San Felice
 away_team: Sporminore
 home_score: 
-away_score: 
+away_score: 1
 tiebreak: false
 giocata: false
 auto_generated: true
