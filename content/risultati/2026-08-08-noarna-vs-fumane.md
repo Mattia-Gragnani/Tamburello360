@@ -6,7 +6,7 @@ tipo: outdoor
 giornata: 2
 home_team: Noarna
 away_team: Fumane
-home_score: 
+home_score: 1
 away_score: 
 tiebreak: false
 giocata: false
