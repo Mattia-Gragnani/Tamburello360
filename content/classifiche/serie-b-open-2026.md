@@ -2,22 +2,22 @@
 serie: B
 tipo: outdoor
 year: 2026
-updated: 2026-08-14T14:56:08.188Z
+updated: 2026-08-14T15:57:06.541Z
 teams:
   - position: 1
     name: Noarna
-    points: 50
-    wins: 16
+    points: 53
+    wins: 17
     draws: 0
     losses: 4
-    played: 20
+    played: 21
   - position: 2
     name: Cereta
     points: 36
     wins: 12
     draws: 0
-    losses: 8
-    played: 20
+    losses: 9
+    played: 21
   - position: 3
     name: Castelnuovo
     points: 36
