@@ -7,7 +7,7 @@ giornata: 2
 home_team: Cereta
 away_team: Cinaglio
 home_score: 
-away_score: 
+away_score: 1
 tiebreak: false
 giocata: false
 auto_generated: true
