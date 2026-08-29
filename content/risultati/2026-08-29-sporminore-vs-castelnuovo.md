@@ -1,11 +1,11 @@
 ---
-id: 2026-08-30-valle-san-felice-vs-noarna
-date: 2026-08-30T15:00:00.000+01:00
+id: 2026-08-29-sporminore-vs-castelnuovo
+date: 2026-08-29T15:00:00.000+01:00
 serie: Serie B Open
 tipo: outdoor
 giornata: 1
-home_team: Valle San Felice
-away_team: Noarna
+home_team: Sporminore
+away_team: Castelnuovo
 home_score: 
 away_score: 
 tiebreak: false
