@@ -6,9 +6,9 @@ tipo: outdoor
 giornata: 1
 home_team: Valle San Felice
 away_team: Noarna
-home_score: 
-away_score: 
+home_score: 0
+away_score: 2
 tiebreak: false
-giocata: false
+giocata: true
 auto_generated: true
 ---
