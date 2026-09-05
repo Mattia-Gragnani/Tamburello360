@@ -6,9 +6,9 @@ tipo: outdoor
 giornata: 3
 home_team: Sporminore
 away_team: Cereta
-home_score: 
-away_score: 1
+home_score: 0
+away_score: 2
 tiebreak: false
-giocata: false
+giocata: true
 auto_generated: true
 ---
