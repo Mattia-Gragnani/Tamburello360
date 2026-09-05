@@ -7,7 +7,7 @@ giornata: 3
 home_team: Arcene
 away_team: Noarna
 home_score: 
-away_score: 
+away_score: 1
 tiebreak: false
 giocata: false
 auto_generated: true
