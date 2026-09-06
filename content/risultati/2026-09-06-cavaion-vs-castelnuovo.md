@@ -6,9 +6,9 @@ tipo: outdoor
 giornata: 3
 home_team: Cavaion
 away_team: Castelnuovo
-home_score: 
-away_score: 
+home_score: 0
+away_score: 2
 tiebreak: false
-giocata: false
+giocata: true
 auto_generated: true
 ---
