@@ -2,7 +2,7 @@
 serie: A
 tipo: outdoor
 year: 2026
-updated: 2026-09-06T23:02:10.825Z
+updated: 2026-09-07T01:15:05.225Z
 teams:
   - position: 1
     name: Dossena
