@@ -6,9 +6,9 @@ tipo: outdoor
 giornata: 4
 home_team: Cinaglio
 away_team: Sporminore
-home_score: 
-away_score: 
-tiebreak: false
-giocata: false
+home_score: 2
+away_score: 1
+tiebreak: true
+giocata: true
 auto_generated: true
 ---

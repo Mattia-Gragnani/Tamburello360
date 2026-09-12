@@ -2,7 +2,7 @@
 serie: B
 tipo: outdoor
 year: 2026
-updated: 2026-09-12T13:42:19.987Z
+updated: 2026-09-12T16:52:54.510Z
 teams:
   - position: 1
     name: Noarna
@@ -13,25 +13,25 @@ teams:
     played: 23
   - position: 2
     name: Castelnuovo
-    points: 41
-    wins: 13
-    draws: 0
-    losses: 9
-    played: 22
-  - position: 3
-    name: Cereta
-    points: 39
+    points: 42
     wins: 13
     draws: 0
     losses: 10
     played: 23
+  - position: 3
+    name: Cereta
+    points: 41
+    wins: 14
+    draws: 0
+    losses: 10
+    played: 24
   - position: 4
     name: Cinaglio
-    points: 31
-    wins: 11
+    points: 33
+    wins: 12
     draws: 0
     losses: 9
-    played: 20
+    played: 21
   - position: 5
     name: Fumane
     points: 29
@@ -69,9 +69,9 @@ teams:
     played: 20
   - position: 10
     name: Sporminore
-    points: 23
+    points: 24
     wins: 6
     draws: 0
-    losses: 16
-    played: 22
+    losses: 17
+    played: 23
 ---

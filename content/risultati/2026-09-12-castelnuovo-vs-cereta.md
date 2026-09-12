@@ -7,8 +7,8 @@ giornata: 4
 home_team: Castelnuovo
 away_team: Cereta
 home_score: 1
-away_score: 
-tiebreak: false
-giocata: false
+away_score: 2
+tiebreak: true
+giocata: true
 auto_generated: true
 ---
