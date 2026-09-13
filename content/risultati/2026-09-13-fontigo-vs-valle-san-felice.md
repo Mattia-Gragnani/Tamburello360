@@ -6,7 +6,7 @@ tipo: outdoor
 giornata: 4
 home_team: Fontigo
 away_team: Valle San Felice
-home_score: 
+home_score: 1
 away_score: 
 tiebreak: false
 giocata: false
