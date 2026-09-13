@@ -2,15 +2,15 @@
 serie: B
 tipo: outdoor
 year: 2026
-updated: 2026-09-13T14:12:14.083Z
+updated: 2026-09-13T17:34:51.388Z
 teams:
   - position: 1
     name: Noarna
-    points: 58
-    wins: 19
+    points: 61
+    wins: 20
     draws: 0
     losses: 4
-    played: 23
+    played: 24
   - position: 2
     name: Castelnuovo
     points: 42
@@ -37,36 +37,36 @@ teams:
     points: 29
     wins: 11
     draws: 0
-    losses: 11
-    played: 22
+    losses: 12
+    played: 23
   - position: 6
+    name: Fontigo
+    points: 27
+    wins: 9
+    draws: 0
+    losses: 12
+    played: 21
+  - position: 7
     name: Valle San Felice
     points: 27
     wins: 9
     draws: 0
-    losses: 13
-    played: 22
-  - position: 7
+    losses: 14
+    played: 23
+  - position: 8
     name: Arcene
     points: 27
     wins: 8
     draws: 0
     losses: 13
     played: 21
-  - position: 8
+  - position: 9
     name: Cavaion
     points: 25
     wins: 10
     draws: 0
     losses: 11
     played: 21
-  - position: 9
-    name: Fontigo
-    points: 24
-    wins: 8
-    draws: 0
-    losses: 12
-    played: 20
   - position: 10
     name: Sporminore
     points: 24
