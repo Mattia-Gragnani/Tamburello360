@@ -6,9 +6,9 @@ tipo: outdoor
 giornata: 5
 home_team: Cereta
 away_team: Cavaion
-home_score: 
-away_score: 
-tiebreak: false
-giocata: false
+home_score: 1
+away_score: 2
+tiebreak: true
+giocata: true
 auto_generated: true
 ---

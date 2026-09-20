@@ -6,9 +6,9 @@ tipo: outdoor
 giornata: 5
 home_team: Castelnuovo
 away_team: Cinaglio
-home_score: 
-away_score: 
+home_score: 0
+away_score: 2
 tiebreak: false
-giocata: false
+giocata: true
 auto_generated: true
 ---
