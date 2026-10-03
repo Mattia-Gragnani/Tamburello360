@@ -7,7 +7,7 @@ giornata: 1
 home_team: Noarna
 away_team: Cinaglio
 home_score: 
-away_score: 
+away_score: 1
 tiebreak: false
 giocata: false
 auto_generated: true
