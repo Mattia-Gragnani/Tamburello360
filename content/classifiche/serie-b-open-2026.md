@@ -2,15 +2,15 @@
 serie: B
 tipo: outdoor
 year: 2026
-updated: 2026-10-03T13:12:21.914Z
+updated: 2026-10-03T17:32:41.194Z
 teams:
   - position: 1
     name: Noarna
-    points: 67
-    wins: 22
+    points: 69
+    wins: 23
     draws: 0
     losses: 4
-    played: 26
+    played: 27
   - position: 2
     name: Cereta
     points: 42
@@ -27,11 +27,11 @@ teams:
     played: 24
   - position: 4
     name: Cinaglio
-    points: 36
+    points: 37
     wins: 13
     draws: 0
-    losses: 10
-    played: 23
+    losses: 11
+    played: 24
   - position: 5
     name: Arcene
     points: 30
